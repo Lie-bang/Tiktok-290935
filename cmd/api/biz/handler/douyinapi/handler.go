@@ -1,0 +1,174 @@
+package douyinapi
+
+import (
+	"douyin/cmd/api/biz/model/douyinapi"
+	"douyin/kitex_gen/douyinmessage"
+	"douyin/kitex_gen/douyinrelation"
+	"douyin/kitex_gen/douyinuser"
+	"douyin/pkg/errno"
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
+)
+
+type BaseResponse struct {
+	StatusCode int64  `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusMsg  string `json:"status_msg"`  // 返回状态描述
+}
+
+type ApiUserResponse struct {
+	StatusCode int64           `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusMsg  string          `json:"status_msg"`  // 返回状态描述
+	User       *douyinapi.User `json:"user"`        // 用户信息
+}
+
+type ApiUsersResponse struct {
+	StatusCode int64             `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusMsg  string            `json:"status_msg"`  // 返回状态描述
+	UserList   []*douyinapi.User `json:"user_list"`   // 用户列表
+}
+
+type ApiFriendUserResponse struct {
+	StatusCode int64                   `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusMsg  string                  `json:"status_msg"`  // 返回状态描述
+	UserList   []*douyinapi.FriendUser `json:"user_list"`   // 用户列表
+}
+
+//type ApiMessageResponse struct {
+//	StatusCode  int64                `json:"status_code"`  // 状态码，0-成功，其他值-失败
+//	StatusMsg   string               `json:"status_msg"`   // 返回状态描述
+//	MessageList []*douyinapi.Message `json:"message_list"` // 消息列表
+//}
+
+type ApiMessageResponse struct {
+	StatusCode  int32       `json:"status_code"`  // 状态码，0-成功，其他值-失败
+	StatusMsg   string      `json:"status_msg"`   // 返回状态描述
+	MessageList interface{} `json:"message_list,omitempty"` // 消息列表
+}
+
+func UserUserToApiUser(user *douyinuser.User) *douyinapi.User {
+	return &douyinapi.User{
+		ID:            user.UserId,
+		Name:          user.Username,
+		FollowCount:   user.FollowCount,
+		FollowerCount: user.FollowerCount,
+		IsFollow:      user.IsFollow,
+		Avatar:        user.Avatar,
+	}
+}
+
+func RelationUserToApiUser(user *douyinrelation.User) *douyinapi.User {
+	if user == nil {
+		return nil
+	}
+	return &douyinapi.User{
+		ID:            user.UserId,
+		Name:          user.Username,
+		FollowCount:   user.FollowCount,
+		FollowerCount: user.FollowerCount,
+		IsFollow:      user.IsFollow,
+		Avatar:        user.Avatar,
+	}
+}
+
+func RelationUsersToApiUsers(users []*douyinrelation.User) []*douyinapi.User {
+	res := make([]*douyinapi.User, 0)
+	for _, u := range users {
+		if n := RelationUserToApiUser(u); n != nil {
+			res = append(res, n)
+		}
+	}
+	return res
+}
+
+func RelationFriendUserToApiFriendUser(user *douyinrelation.FriendUser) *douyinapi.FriendUser {
+	if user == nil {
+		return nil
+	}
+	return &douyinapi.FriendUser{
+		ID:            user.User.UserId,
+		Name:          user.User.Username,
+		FollowCount:   user.User.FollowCount,
+		FollowerCount: user.User.FollowerCount,
+		IsFollow:      user.User.IsFollow,
+		Message:       user.Message,
+		MsgType:       user.MsgType,
+		Avatar:        user.User.Avatar,
+	}
+}
+
+func RelationFriendUsersToApiFriendUsers(users []*douyinrelation.FriendUser) []*douyinapi.FriendUser {
+	res := make([]*douyinapi.FriendUser, 0)
+	for _, u := range users {
+		if n := RelationFriendUserToApiFriendUser(u); n != nil {
+			res = append(res, n)
+		}
+	}
+	return res
+}
+
+func MsgMessageToApiMessage(msg *douyinmessage.Message) *douyinapi.Message {
+	if msg == nil {
+		return nil
+	}
+	return &douyinapi.Message{
+		ID:         msg.MsgId,
+		ToUserID:   msg.ToUserId,
+		FromUserID: msg.FromUserId,
+		Content:    msg.Content,
+		CreateTime: msg.CreateTime,
+	}
+}
+
+func MsgMessagesToApiMessages(msgs []*douyinmessage.Message) []*douyinapi.Message {
+	res := make([]*douyinapi.Message, 0)
+	for _, m := range msgs {
+		if n := MsgMessageToApiMessage(m); n != nil {
+			res = append(res, n)
+		}
+	}
+	return res
+}
+
+func SendResponse(c *app.RequestContext, err error) {
+	Err := errno.ConvertErr(err)
+	c.JSON(consts.StatusOK, BaseResponse{
+		StatusCode: Err.ErrCode,
+		StatusMsg:  Err.ErrMsg,
+	})
+}
+
+func SendUserResponse(c *app.RequestContext, err error, user *douyinapi.User) {
+	Err := errno.ConvertErr(err)
+	c.JSON(consts.StatusOK, ApiUserResponse{
+		StatusCode: Err.ErrCode,
+		StatusMsg:  Err.ErrMsg,
+		User:       user,
+	})
+}
+
+func SendUsersResponse(c *app.RequestContext, err error, users []*douyinapi.User) {
+	Err := errno.ConvertErr(err)
+	c.JSON(consts.StatusOK, ApiUsersResponse{
+		StatusCode: Err.ErrCode,
+		StatusMsg:  Err.ErrMsg,
+		UserList:   users,
+	})
+}
+
+func SendFriendUsersResponse(c *app.RequestContext, err error, users []*douyinapi.FriendUser) {
+	Err := errno.ConvertErr(err)
+	c.JSON(consts.StatusOK, ApiFriendUserResponse{
+		StatusCode: Err.ErrCode,
+		StatusMsg:  Err.ErrMsg,
+		UserList:   users,
+	})
+}
+
+func SendMessageResponse(c *app.RequestContext, err error, messages []*douyinapi.Message) {
+	Err := errno.ConvertErr(err)
+	c.JSON(consts.StatusOK, ApiMessageResponse{
+		StatusCode:  int32(Err.ErrCode),
+		StatusMsg:   Err.ErrMsg,
+		MessageList: messages,
+	})
+}
