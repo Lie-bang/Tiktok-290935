@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="myhot" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="myhot">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/mygoworkspace/src/douyin" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
