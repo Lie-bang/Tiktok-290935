@@ -33,6 +33,7 @@ var (
 	ParamErr               = NewErrNo(int64(douyinuser.ErrCode_ParamErrCode), "Wrong Parameter has been given")
 	UserAlreadyExistErr    = NewErrNo(int64(douyinuser.ErrCode_UserAlreadyExistErrCode), "User already exists")
 	AuthorizationFailedErr = NewErrNo(int64(douyinuser.ErrCode_AuthorizationFailedErrCode), "Authorization failed")
+	RedisServiceErr        = NewErrNo(int64(10010), "Redis service failed")
 )
 
 func ConvertErr(err error) ErrNo {

@@ -20,4 +20,6 @@ const (
 	RedisPassword       = "dlb123456"
 	RedisAddr           = "localhost:6379"
 	RedisChatRecord     = "ChatRecord"
+	UserFollowList      = "{userfollowlist}:"
+	UserFollowerList    = "{userfollowerlist}:"
 )
