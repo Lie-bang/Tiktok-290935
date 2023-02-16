@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"douyin/cmd/relation/dal/db"
+	"douyin/cmd/relation/dal/rdb"
 	"douyin/cmd/relation/pack"
 	"douyin/cmd/relation/rpc"
 	"douyin/kitex_gen/douyinrelation"
@@ -18,21 +18,27 @@ func NewFollowerListService(ctx context.Context) *FollowerListService {
 }
 
 func (s *FollowerListService) FollowerList(req *douyinrelation.FollowerListRequest) ([]*douyinrelation.User, error) {
-	var followerUsers []*douyinrelation.User
-	userIds, err := db.FollowerList(s.ctx, req.UserId)
+	followerUsers := make([]*douyinrelation.User, 0)
+	userRModels, err := rdb.FollowerList(s.ctx, req.UserId, req.ToUserId)
 	if err != nil {
 		return followerUsers, err
 	}
-	if len(userIds) == 0 {
+	if len(userRModels) == 0 {
 		return followerUsers, nil
 	}
-	usersMap, err := rpc.MGetUser(s.ctx, &douyinuser.MGetUserRequest{
-		UserIds: userIds,
+
+	userIds := make([]int64, 0)
+	for _, rm := range userRModels {
+		userIds = append(userIds, rm.ID)
+	}
+	usersMap, err := rpc.MGetUser(s.ctx, &douyinuser.MGetUserNameRequest{
 		UserId:  req.UserId,
+		UserIds: userIds,
 	})
 	if err != nil {
 		return followerUsers, err
 	}
-	followerUsers = pack.UUserToRUser(usersMap)
+	followerUsers = pack.ToRUser(userRModels, usersMap)
+
 	return followerUsers, nil
 }

@@ -19,10 +19,10 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*douyinuser.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"CreateUser": kitex.NewMethodInfo(createUserHandler, newUserServiceCreateUserArgs, newUserServiceCreateUserResult, false),
-		"CheckUser":  kitex.NewMethodInfo(checkUserHandler, newUserServiceCheckUserArgs, newUserServiceCheckUserResult, false),
-		"GetUser":    kitex.NewMethodInfo(getUserHandler, newUserServiceGetUserArgs, newUserServiceGetUserResult, false),
-		"MGetUser":   kitex.NewMethodInfo(mGetUserHandler, newUserServiceMGetUserArgs, newUserServiceMGetUserResult, false),
+		"CreateUser":   kitex.NewMethodInfo(createUserHandler, newUserServiceCreateUserArgs, newUserServiceCreateUserResult, false),
+		"CheckUser":    kitex.NewMethodInfo(checkUserHandler, newUserServiceCheckUserArgs, newUserServiceCheckUserResult, false),
+		"GetUser":      kitex.NewMethodInfo(getUserHandler, newUserServiceGetUserArgs, newUserServiceGetUserResult, false),
+		"MGetUserName": kitex.NewMethodInfo(mGetUserNameHandler, newUserServiceMGetUserNameArgs, newUserServiceMGetUserNameResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "douyinuser",
@@ -92,22 +92,22 @@ func newUserServiceGetUserResult() interface{} {
 	return douyinuser.NewUserServiceGetUserResult()
 }
 
-func mGetUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*douyinuser.UserServiceMGetUserArgs)
-	realResult := result.(*douyinuser.UserServiceMGetUserResult)
-	success, err := handler.(douyinuser.UserService).MGetUser(ctx, realArg.Req)
+func mGetUserNameHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*douyinuser.UserServiceMGetUserNameArgs)
+	realResult := result.(*douyinuser.UserServiceMGetUserNameResult)
+	success, err := handler.(douyinuser.UserService).MGetUserName(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newUserServiceMGetUserArgs() interface{} {
-	return douyinuser.NewUserServiceMGetUserArgs()
+func newUserServiceMGetUserNameArgs() interface{} {
+	return douyinuser.NewUserServiceMGetUserNameArgs()
 }
 
-func newUserServiceMGetUserResult() interface{} {
-	return douyinuser.NewUserServiceMGetUserResult()
+func newUserServiceMGetUserNameResult() interface{} {
+	return douyinuser.NewUserServiceMGetUserNameResult()
 }
 
 type kClient struct {
@@ -150,11 +150,11 @@ func (p *kClient) GetUser(ctx context.Context, req *douyinuser.GetUserRequest) (
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) MGetUser(ctx context.Context, req *douyinuser.MGetUserRequest) (r *douyinuser.MGetUserResponse, err error) {
-	var _args douyinuser.UserServiceMGetUserArgs
+func (p *kClient) MGetUserName(ctx context.Context, req *douyinuser.MGetUserNameRequest) (r *douyinuser.MGetUserNameResponse, err error) {
+	var _args douyinuser.UserServiceMGetUserNameArgs
 	_args.Req = req
-	var _result douyinuser.UserServiceMGetUserResult
-	if err = p.c.Call(ctx, "MGetUser", &_args, &_result); err != nil {
+	var _result douyinuser.UserServiceMGetUserNameResult
+	if err = p.c.Call(ctx, "MGetUserName", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

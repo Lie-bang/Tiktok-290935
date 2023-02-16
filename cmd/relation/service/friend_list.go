@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"douyin/cmd/relation/dal/db"
+	"douyin/cmd/relation/dal/rdb"
 	"douyin/cmd/relation/pack"
 	"douyin/cmd/relation/rpc"
 	"douyin/kitex_gen/douyinmessage"
@@ -19,15 +19,20 @@ func NewFriendListService(ctx context.Context) *FriendListService {
 }
 
 func (s *FriendListService) FriendList(req *douyinrelation.FriendListRequest) ([]*douyinrelation.FriendUser, error) {
-	var followerUsers []*douyinrelation.FriendUser
-	userIds, err := db.FriendList(s.ctx, req.UserId)
+	followerUsers := make([]*douyinrelation.FriendUser, 0)
+	userRModels, err := rdb.FriendList(s.ctx, req.UserId, req.ToUserId)
 	if err != nil {
 		return followerUsers, err
 	}
-	if len(userIds) == 0 {
+	if len(userRModels) == 0 {
 		return followerUsers, nil
 	}
-	usersMap, err := rpc.MGetUser(s.ctx, &douyinuser.MGetUserRequest{
+
+	userIds := make([]int64, 0)
+	for _, rm := range userRModels {
+		userIds = append(userIds, rm.ID)
+	}
+	usersMap, err := rpc.MGetUser(s.ctx, &douyinuser.MGetUserNameRequest{
 		UserIds: userIds,
 		UserId:  req.UserId,
 	})
@@ -43,6 +48,6 @@ func (s *FriendListService) FriendList(req *douyinrelation.FriendListRequest) ([
 		return nil, err
 	}
 	contents, msgTypes := pack.ToFirstMessage(messages, req.UserId)
-	followerUsers = pack.ToFriendUser(usersMap, contents, msgTypes)
+	followerUsers = pack.ToFriendUser(userRModels, usersMap, contents, msgTypes)
 	return followerUsers, nil
 }

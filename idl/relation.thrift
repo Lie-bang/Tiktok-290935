@@ -33,6 +33,7 @@ struct ActionResponse{
 
 struct FollowListRequest{
     1: i64 user_id(vt.gt="0")
+    2: i64 to_user_id(vt.gt="0")
 }
 
 struct FollowListResponse{
@@ -42,6 +43,7 @@ struct FollowListResponse{
 
 struct FollowerListRequest{
     1: i64 user_id(vt.gt="0")
+    2: i64 to_user_id(vt.gt="0")
  }
 
 struct FollowerListResponse{
@@ -51,6 +53,7 @@ struct FollowerListResponse{
 
 struct FriendListRequest{
     1: i64 user_id(vt.gt="0")
+    2: i64 to_user_id(vt.gt="0")
 }
 
 struct FriendListResponse{
@@ -58,32 +61,14 @@ struct FriendListResponse{
     2: list<FriendUser> user_list
 }
 
-struct CountFollowRequest{
-    1: i64 user_id(vt.gt="0")
+struct GetRelationInfoRequest{
+    1: i64 user_id
+    2: list<i64> to_user_ids
 }
 
-struct CountFollowResponse{
+struct GetRelationInfoResponse{
     1: BaseResp base_resp
-    2: i64 follow_count
-}
-
-struct CountFollowerRequest{
-    1: i64 user_id(vt.gt="0")
-}
-
-struct CountFollowerResponse{
-    1: BaseResp base_resp
-    2: i64 follower_count
-}
-
-struct IsFollowRequest{
-    1: i64 user_id(vt.gt="0")
-    2: i64 to_user_id(vt.gt="0")
-}
-
-struct IsFollowResponse{
-    1: BaseResp base_resp
-    2: bool is_follow
+    2: list<User> user_list
 }
 
 service RelationService{
@@ -91,7 +76,5 @@ service RelationService{
     FollowListResponse FollowList (1:FollowListRequest req)
     FollowerListResponse FollowerList (1:FollowerListRequest req)
     FriendListResponse FriendList (1:FriendListRequest req)
-    CountFollowResponse CountFollow(1:CountFollowRequest req)
-    CountFollowerResponse CountFollower(1:CountFollowerRequest req)
-    IsFollowResponse IsFollow(1:IsFollowRequest req)
+    GetRelationInfoResponse GetRelationInfo(1:GetRelationInfoRequest req)
 }

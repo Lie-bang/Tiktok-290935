@@ -90,62 +90,22 @@ func (s *RelationServiceImpl) FriendList(ctx context.Context, req *douyinrelatio
 	return resp, nil
 }
 
-// CountFollow implements the RelationServiceImpl interface.
-func (s *RelationServiceImpl) CountFollow(ctx context.Context, req *douyinrelation.CountFollowRequest) (resp *douyinrelation.CountFollowResponse, err error) {
+// GetRelationInfo implements the RelationServiceImpl interface.
+func (s *RelationServiceImpl) GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoRequest) (resp *douyinrelation.GetRelationInfoResponse, err error) {
 	// TODO: Your code here...
-	resp = new(douyinrelation.CountFollowResponse)
+	resp = new(douyinrelation.GetRelationInfoResponse)
 	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
-	followNums, err := service.NewCountFollowService(ctx).CountFollow(req)
+	usersInfo, err := service.NewGetRelationInfoService(ctx).GetRelationInfo(req)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return resp, nil
 	}
 
-	resp.FollowCount = followNums
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
-	return resp, nil
-}
-
-// CountFollower implements the RelationServiceImpl interface.
-func (s *RelationServiceImpl) CountFollower(ctx context.Context, req *douyinrelation.CountFollowerRequest) (resp *douyinrelation.CountFollowerResponse, err error) {
-	// TODO: Your code here...
-	resp = new(douyinrelation.CountFollowerResponse)
-	if err = req.IsValid(); err != nil {
-		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
-		return resp, nil
-	}
-
-	followerNums, err := service.NewCountFollowerService(ctx).CountFollower(req)
-	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
-		return resp, nil
-	}
-
-	resp.FollowerCount = followerNums
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
-	return resp, nil
-}
-
-// IsFollow implements the RelationServiceImpl interface.
-func (s *RelationServiceImpl) IsFollow(ctx context.Context, req *douyinrelation.IsFollowRequest) (resp *douyinrelation.IsFollowResponse, err error) {
-	// TODO: Your code here...
-	resp = new(douyinrelation.IsFollowResponse)
-	if err = req.IsValid(); err != nil {
-		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
-		return resp, nil
-	}
-
-	isFollow, err := service.NewIsFollowService(ctx).IsFollow(req)
-	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
-		return resp, nil
-	}
-
-	resp.IsFollow = isFollow
+	resp.UserList = usersInfo
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return resp, nil
 }

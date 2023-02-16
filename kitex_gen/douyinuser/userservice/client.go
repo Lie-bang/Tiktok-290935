@@ -14,7 +14,7 @@ type Client interface {
 	CreateUser(ctx context.Context, req *douyinuser.CreateUserRequest, callOptions ...callopt.Option) (r *douyinuser.CreateUserResponse, err error)
 	CheckUser(ctx context.Context, req *douyinuser.CheckUserRequest, callOptions ...callopt.Option) (r *douyinuser.CheckUserResponse, err error)
 	GetUser(ctx context.Context, req *douyinuser.GetUserRequest, callOptions ...callopt.Option) (r *douyinuser.GetUserResponse, err error)
-	MGetUser(ctx context.Context, req *douyinuser.MGetUserRequest, callOptions ...callopt.Option) (r *douyinuser.MGetUserResponse, err error)
+	MGetUserName(ctx context.Context, req *douyinuser.MGetUserNameRequest, callOptions ...callopt.Option) (r *douyinuser.MGetUserNameResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -61,7 +61,7 @@ func (p *kUserServiceClient) GetUser(ctx context.Context, req *douyinuser.GetUse
 	return p.kClient.GetUser(ctx, req)
 }
 
-func (p *kUserServiceClient) MGetUser(ctx context.Context, req *douyinuser.MGetUserRequest, callOptions ...callopt.Option) (r *douyinuser.MGetUserResponse, err error) {
+func (p *kUserServiceClient) MGetUserName(ctx context.Context, req *douyinuser.MGetUserNameRequest, callOptions ...callopt.Option) (r *douyinuser.MGetUserNameResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.MGetUser(ctx, req)
+	return p.kClient.MGetUserName(ctx, req)
 }

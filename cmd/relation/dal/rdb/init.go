@@ -2,6 +2,7 @@ package rdb
 
 import (
 	"context"
+	"douyin/pkg/consts"
 	"github.com/redis/go-redis/v9"
 	"time"
 )
@@ -10,9 +11,9 @@ var RDB *redis.Client
 
 func Init() {
 	RDB = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379", // redis地址
-		Password: "",               // redis密码，没有则留空
-		DB:       0,                // 默认数据库，默认是0
+		Addr:     "localhost:6379",     // redis地址
+		Password: consts.RedisPassword, // redis密码，没有则留空
+		DB:       0,                    // 默认数据库，默认是0
 
 		// 命令执行失败时的重试策略
 		MaxRetries:      3,                      // 命令执行失败时, 最多重试多少次, 默认为0即不错红石

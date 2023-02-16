@@ -67,6 +67,9 @@ func (p *FollowListRequest) IsValid() error {
 	if p.UserId <= int64(0) {
 		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
 	}
+	if p.ToUserId <= int64(0) {
+		return fmt.Errorf("field ToUserId gt rule failed, current value: %v", p.ToUserId)
+	}
 	return nil
 }
 func (p *FollowListResponse) IsValid() error {
@@ -80,6 +83,9 @@ func (p *FollowListResponse) IsValid() error {
 func (p *FollowerListRequest) IsValid() error {
 	if p.UserId <= int64(0) {
 		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
+	}
+	if p.ToUserId <= int64(0) {
+		return fmt.Errorf("field ToUserId gt rule failed, current value: %v", p.ToUserId)
 	}
 	return nil
 }
@@ -95,6 +101,9 @@ func (p *FriendListRequest) IsValid() error {
 	if p.UserId <= int64(0) {
 		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
 	}
+	if p.ToUserId <= int64(0) {
+		return fmt.Errorf("field ToUserId gt rule failed, current value: %v", p.ToUserId)
+	}
 	return nil
 }
 func (p *FriendListResponse) IsValid() error {
@@ -105,44 +114,10 @@ func (p *FriendListResponse) IsValid() error {
 	}
 	return nil
 }
-func (p *CountFollowRequest) IsValid() error {
-	if p.UserId <= int64(0) {
-		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
-	}
+func (p *GetRelationInfoRequest) IsValid() error {
 	return nil
 }
-func (p *CountFollowResponse) IsValid() error {
-	if p.BaseResp != nil {
-		if err := p.BaseResp.IsValid(); err != nil {
-			return fmt.Errorf("filed BaseResp not valid, %w", err)
-		}
-	}
-	return nil
-}
-func (p *CountFollowerRequest) IsValid() error {
-	if p.UserId <= int64(0) {
-		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
-	}
-	return nil
-}
-func (p *CountFollowerResponse) IsValid() error {
-	if p.BaseResp != nil {
-		if err := p.BaseResp.IsValid(); err != nil {
-			return fmt.Errorf("filed BaseResp not valid, %w", err)
-		}
-	}
-	return nil
-}
-func (p *IsFollowRequest) IsValid() error {
-	if p.UserId <= int64(0) {
-		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
-	}
-	if p.ToUserId <= int64(0) {
-		return fmt.Errorf("field ToUserId gt rule failed, current value: %v", p.ToUserId)
-	}
-	return nil
-}
-func (p *IsFollowResponse) IsValid() error {
+func (p *GetRelationInfoResponse) IsValid() error {
 	if p.BaseResp != nil {
 		if err := p.BaseResp.IsValid(); err != nil {
 			return fmt.Errorf("filed BaseResp not valid, %w", err)

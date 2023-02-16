@@ -19,13 +19,11 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "RelationService"
 	handlerType := (*douyinrelation.RelationService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"Action":        kitex.NewMethodInfo(actionHandler, newRelationServiceActionArgs, newRelationServiceActionResult, false),
-		"FollowList":    kitex.NewMethodInfo(followListHandler, newRelationServiceFollowListArgs, newRelationServiceFollowListResult, false),
-		"FollowerList":  kitex.NewMethodInfo(followerListHandler, newRelationServiceFollowerListArgs, newRelationServiceFollowerListResult, false),
-		"FriendList":    kitex.NewMethodInfo(friendListHandler, newRelationServiceFriendListArgs, newRelationServiceFriendListResult, false),
-		"CountFollow":   kitex.NewMethodInfo(countFollowHandler, newRelationServiceCountFollowArgs, newRelationServiceCountFollowResult, false),
-		"CountFollower": kitex.NewMethodInfo(countFollowerHandler, newRelationServiceCountFollowerArgs, newRelationServiceCountFollowerResult, false),
-		"IsFollow":      kitex.NewMethodInfo(isFollowHandler, newRelationServiceIsFollowArgs, newRelationServiceIsFollowResult, false),
+		"Action":          kitex.NewMethodInfo(actionHandler, newRelationServiceActionArgs, newRelationServiceActionResult, false),
+		"FollowList":      kitex.NewMethodInfo(followListHandler, newRelationServiceFollowListArgs, newRelationServiceFollowListResult, false),
+		"FollowerList":    kitex.NewMethodInfo(followerListHandler, newRelationServiceFollowerListArgs, newRelationServiceFollowerListResult, false),
+		"FriendList":      kitex.NewMethodInfo(friendListHandler, newRelationServiceFriendListArgs, newRelationServiceFriendListResult, false),
+		"GetRelationInfo": kitex.NewMethodInfo(getRelationInfoHandler, newRelationServiceGetRelationInfoArgs, newRelationServiceGetRelationInfoResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "douyinrelation",
@@ -113,58 +111,22 @@ func newRelationServiceFriendListResult() interface{} {
 	return douyinrelation.NewRelationServiceFriendListResult()
 }
 
-func countFollowHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*douyinrelation.RelationServiceCountFollowArgs)
-	realResult := result.(*douyinrelation.RelationServiceCountFollowResult)
-	success, err := handler.(douyinrelation.RelationService).CountFollow(ctx, realArg.Req)
+func getRelationInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*douyinrelation.RelationServiceGetRelationInfoArgs)
+	realResult := result.(*douyinrelation.RelationServiceGetRelationInfoResult)
+	success, err := handler.(douyinrelation.RelationService).GetRelationInfo(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newRelationServiceCountFollowArgs() interface{} {
-	return douyinrelation.NewRelationServiceCountFollowArgs()
+func newRelationServiceGetRelationInfoArgs() interface{} {
+	return douyinrelation.NewRelationServiceGetRelationInfoArgs()
 }
 
-func newRelationServiceCountFollowResult() interface{} {
-	return douyinrelation.NewRelationServiceCountFollowResult()
-}
-
-func countFollowerHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*douyinrelation.RelationServiceCountFollowerArgs)
-	realResult := result.(*douyinrelation.RelationServiceCountFollowerResult)
-	success, err := handler.(douyinrelation.RelationService).CountFollower(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newRelationServiceCountFollowerArgs() interface{} {
-	return douyinrelation.NewRelationServiceCountFollowerArgs()
-}
-
-func newRelationServiceCountFollowerResult() interface{} {
-	return douyinrelation.NewRelationServiceCountFollowerResult()
-}
-
-func isFollowHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*douyinrelation.RelationServiceIsFollowArgs)
-	realResult := result.(*douyinrelation.RelationServiceIsFollowResult)
-	success, err := handler.(douyinrelation.RelationService).IsFollow(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newRelationServiceIsFollowArgs() interface{} {
-	return douyinrelation.NewRelationServiceIsFollowArgs()
-}
-
-func newRelationServiceIsFollowResult() interface{} {
-	return douyinrelation.NewRelationServiceIsFollowResult()
+func newRelationServiceGetRelationInfoResult() interface{} {
+	return douyinrelation.NewRelationServiceGetRelationInfoResult()
 }
 
 type kClient struct {
@@ -217,31 +179,11 @@ func (p *kClient) FriendList(ctx context.Context, req *douyinrelation.FriendList
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) CountFollow(ctx context.Context, req *douyinrelation.CountFollowRequest) (r *douyinrelation.CountFollowResponse, err error) {
-	var _args douyinrelation.RelationServiceCountFollowArgs
+func (p *kClient) GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoRequest) (r *douyinrelation.GetRelationInfoResponse, err error) {
+	var _args douyinrelation.RelationServiceGetRelationInfoArgs
 	_args.Req = req
-	var _result douyinrelation.RelationServiceCountFollowResult
-	if err = p.c.Call(ctx, "CountFollow", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) CountFollower(ctx context.Context, req *douyinrelation.CountFollowerRequest) (r *douyinrelation.CountFollowerResponse, err error) {
-	var _args douyinrelation.RelationServiceCountFollowerArgs
-	_args.Req = req
-	var _result douyinrelation.RelationServiceCountFollowerResult
-	if err = p.c.Call(ctx, "CountFollower", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) IsFollow(ctx context.Context, req *douyinrelation.IsFollowRequest) (r *douyinrelation.IsFollowResponse, err error) {
-	var _args douyinrelation.RelationServiceIsFollowArgs
-	_args.Req = req
-	var _result douyinrelation.RelationServiceIsFollowResult
-	if err = p.c.Call(ctx, "IsFollow", &_args, &_result); err != nil {
+	var _result douyinrelation.RelationServiceGetRelationInfoResult
+	if err = p.c.Call(ctx, "GetRelationInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

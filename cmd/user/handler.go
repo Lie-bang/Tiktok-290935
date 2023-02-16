@@ -69,23 +69,23 @@ func (s *UserServiceImpl) GetUser(ctx context.Context, req *douyinuser.GetUserRe
 	return resp, nil
 }
 
-// MGetUser implements the UserServiceImpl interface.
-func (s *UserServiceImpl) MGetUser(ctx context.Context, req *douyinuser.MGetUserRequest) (resp *douyinuser.MGetUserResponse, err error) {
+// MGetUserName implements the UserServiceImpl interface.
+func (s *UserServiceImpl) MGetUserName(ctx context.Context, req *douyinuser.MGetUserNameRequest) (resp *douyinuser.MGetUserNameResponse, err error) {
 	// TODO: Your code here...
-	resp = new(douyinuser.MGetUserResponse)
+	resp = new(douyinuser.MGetUserNameResponse)
 
 	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
-	users, err := service.NewMGetUserService(ctx).MGetUser(req)
+	userNames, err := service.NewMGetUserNameService(ctx).MGetUserName(req)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return resp, nil
 	}
 
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
-	resp.Users = users
+	resp.Usernames = userNames
 	return resp, nil
 }

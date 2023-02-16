@@ -1675,7 +1675,7 @@ func (p *GetUserResponse) field2Length() int {
 	return l
 }
 
-func (p *MGetUserRequest) FastRead(buf []byte) (int, error) {
+func (p *MGetUserNameRequest) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1751,7 +1751,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MGetUserRequest[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MGetUserNameRequest[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1760,7 +1760,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MGetUserRequest) FastReadField1(buf []byte) (int, error) {
+func (p *MGetUserNameRequest) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	_, size, l, err := bthrift.Binary.ReadListBegin(buf[offset:])
@@ -1790,7 +1790,7 @@ func (p *MGetUserRequest) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *MGetUserRequest) FastReadField2(buf []byte) (int, error) {
+func (p *MGetUserNameRequest) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
@@ -1805,13 +1805,13 @@ func (p *MGetUserRequest) FastReadField2(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *MGetUserRequest) FastWrite(buf []byte) int {
+func (p *MGetUserNameRequest) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MGetUserRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserRequest")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserNameRequest")
 	if p != nil {
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
@@ -1821,9 +1821,9 @@ func (p *MGetUserRequest) FastWriteNocopy(buf []byte, binaryWriter bthrift.Binar
 	return offset
 }
 
-func (p *MGetUserRequest) BLength() int {
+func (p *MGetUserNameRequest) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MGetUserRequest")
+	l += bthrift.Binary.StructBeginLength("MGetUserNameRequest")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -1833,7 +1833,7 @@ func (p *MGetUserRequest) BLength() int {
 	return l
 }
 
-func (p *MGetUserRequest) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameRequest) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_ids", thrift.LIST, 1)
 	listBeginOffset := offset
@@ -1850,7 +1850,7 @@ func (p *MGetUserRequest) fastWriteField1(buf []byte, binaryWriter bthrift.Binar
 	return offset
 }
 
-func (p *MGetUserRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameRequest) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_id", thrift.I64, 2)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.UserId)
@@ -1859,7 +1859,7 @@ func (p *MGetUserRequest) fastWriteField2(buf []byte, binaryWriter bthrift.Binar
 	return offset
 }
 
-func (p *MGetUserRequest) field1Length() int {
+func (p *MGetUserNameRequest) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("user_ids", thrift.LIST, 1)
 	l += bthrift.Binary.ListBeginLength(thrift.I64, len(p.UserIds))
@@ -1870,7 +1870,7 @@ func (p *MGetUserRequest) field1Length() int {
 	return l
 }
 
-func (p *MGetUserRequest) field2Length() int {
+func (p *MGetUserNameRequest) field2Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("user_id", thrift.I64, 2)
 	l += bthrift.Binary.I64Length(p.UserId)
@@ -1879,7 +1879,7 @@ func (p *MGetUserRequest) field2Length() int {
 	return l
 }
 
-func (p *MGetUserResponse) FastRead(buf []byte) (int, error) {
+func (p *MGetUserNameResponse) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1902,7 +1902,7 @@ func (p *MGetUserResponse) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.MAP {
 				l, err = p.FastReadField1(buf[offset:])
 				offset += l
 				if err != nil {
@@ -1955,7 +1955,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MGetUserResponse[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_MGetUserNameResponse[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -1964,26 +1964,39 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *MGetUserResponse) FastReadField1(buf []byte) (int, error) {
+func (p *MGetUserNameResponse) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	_, size, l, err := bthrift.Binary.ReadListBegin(buf[offset:])
+	_, _, size, l, err := bthrift.Binary.ReadMapBegin(buf[offset:])
 	offset += l
 	if err != nil {
 		return offset, err
 	}
-	p.Users = make([]*User, 0, size)
+	p.Usernames = make(map[int64]string, size)
 	for i := 0; i < size; i++ {
-		_elem := NewUser()
-		if l, err := _elem.FastRead(buf[offset:]); err != nil {
+		var _key int64
+		if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
 			return offset, err
 		} else {
 			offset += l
+
+			_key = v
+
 		}
 
-		p.Users = append(p.Users, _elem)
+		var _val string
+		if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
+			return offset, err
+		} else {
+			offset += l
+
+			_val = v
+
+		}
+
+		p.Usernames[_key] = _val
 	}
-	if l, err := bthrift.Binary.ReadListEnd(buf[offset:]); err != nil {
+	if l, err := bthrift.Binary.ReadMapEnd(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -1991,7 +2004,7 @@ func (p *MGetUserResponse) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *MGetUserResponse) FastReadField2(buf []byte) (int, error) {
+func (p *MGetUserNameResponse) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewBaseResp()
@@ -2005,13 +2018,13 @@ func (p *MGetUserResponse) FastReadField2(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *MGetUserResponse) FastWrite(buf []byte) int {
+func (p *MGetUserNameResponse) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *MGetUserResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserResponse")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserNameResponse")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
@@ -2021,9 +2034,9 @@ func (p *MGetUserResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.Bina
 	return offset
 }
 
-func (p *MGetUserResponse) BLength() int {
+func (p *MGetUserNameResponse) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MGetUserResponse")
+	l += bthrift.Binary.StructBeginLength("MGetUserNameResponse")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -2033,23 +2046,27 @@ func (p *MGetUserResponse) BLength() int {
 	return l
 }
 
-func (p *MGetUserResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "users", thrift.LIST, 1)
-	listBeginOffset := offset
-	offset += bthrift.Binary.ListBeginLength(thrift.STRUCT, 0)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "usernames", thrift.MAP, 1)
+	mapBeginOffset := offset
+	offset += bthrift.Binary.MapBeginLength(thrift.I64, thrift.STRING, 0)
 	var length int
-	for _, v := range p.Users {
+	for k, v := range p.Usernames {
 		length++
-		offset += v.FastWriteNocopy(buf[offset:], binaryWriter)
+
+		offset += bthrift.Binary.WriteI64(buf[offset:], k)
+
+		offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, v)
+
 	}
-	bthrift.Binary.WriteListBegin(buf[listBeginOffset:], thrift.STRUCT, length)
-	offset += bthrift.Binary.WriteListEnd(buf[offset:])
+	bthrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I64, thrift.STRING, length)
+	offset += bthrift.Binary.WriteMapEnd(buf[offset:])
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
 }
 
-func (p *MGetUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *MGetUserNameResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "base_resp", thrift.STRUCT, 2)
 	offset += p.BaseResp.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -2057,19 +2074,23 @@ func (p *MGetUserResponse) fastWriteField2(buf []byte, binaryWriter bthrift.Bina
 	return offset
 }
 
-func (p *MGetUserResponse) field1Length() int {
+func (p *MGetUserNameResponse) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("users", thrift.LIST, 1)
-	l += bthrift.Binary.ListBeginLength(thrift.STRUCT, len(p.Users))
-	for _, v := range p.Users {
-		l += v.BLength()
+	l += bthrift.Binary.FieldBeginLength("usernames", thrift.MAP, 1)
+	l += bthrift.Binary.MapBeginLength(thrift.I64, thrift.STRING, len(p.Usernames))
+	for k, v := range p.Usernames {
+
+		l += bthrift.Binary.I64Length(k)
+
+		l += bthrift.Binary.StringLengthNocopy(v)
+
 	}
-	l += bthrift.Binary.ListEndLength()
+	l += bthrift.Binary.MapEndLength()
 	l += bthrift.Binary.FieldEndLength()
 	return l
 }
 
-func (p *MGetUserResponse) field2Length() int {
+func (p *MGetUserNameResponse) field2Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("base_resp", thrift.STRUCT, 2)
 	l += p.BaseResp.BLength()
@@ -2851,7 +2872,7 @@ func (p *UserServiceGetUserResult) field0Length() int {
 	return l
 }
 
-func (p *UserServiceMGetUserArgs) FastRead(buf []byte) (int, error) {
+func (p *UserServiceMGetUserNameArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -2913,7 +2934,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceMGetUserArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceMGetUserNameArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -2922,10 +2943,10 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *UserServiceMGetUserArgs) FastReadField1(buf []byte) (int, error) {
+func (p *UserServiceMGetUserNameArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewMGetUserRequest()
+	tmp := NewMGetUserNameRequest()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -2936,13 +2957,13 @@ func (p *UserServiceMGetUserArgs) FastReadField1(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *UserServiceMGetUserArgs) FastWrite(buf []byte) int {
+func (p *UserServiceMGetUserNameArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *UserServiceMGetUserArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *UserServiceMGetUserNameArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUser_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserName_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -2951,9 +2972,9 @@ func (p *UserServiceMGetUserArgs) FastWriteNocopy(buf []byte, binaryWriter bthri
 	return offset
 }
 
-func (p *UserServiceMGetUserArgs) BLength() int {
+func (p *UserServiceMGetUserNameArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MGetUser_args")
+	l += bthrift.Binary.StructBeginLength("MGetUserName_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -2962,7 +2983,7 @@ func (p *UserServiceMGetUserArgs) BLength() int {
 	return l
 }
 
-func (p *UserServiceMGetUserArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *UserServiceMGetUserNameArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -2970,7 +2991,7 @@ func (p *UserServiceMGetUserArgs) fastWriteField1(buf []byte, binaryWriter bthri
 	return offset
 }
 
-func (p *UserServiceMGetUserArgs) field1Length() int {
+func (p *UserServiceMGetUserNameArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -2978,7 +2999,7 @@ func (p *UserServiceMGetUserArgs) field1Length() int {
 	return l
 }
 
-func (p *UserServiceMGetUserResult) FastRead(buf []byte) (int, error) {
+func (p *UserServiceMGetUserNameResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3040,7 +3061,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceMGetUserResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceMGetUserNameResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -3049,10 +3070,10 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *UserServiceMGetUserResult) FastReadField0(buf []byte) (int, error) {
+func (p *UserServiceMGetUserNameResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewMGetUserResponse()
+	tmp := NewMGetUserNameResponse()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -3063,13 +3084,13 @@ func (p *UserServiceMGetUserResult) FastReadField0(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *UserServiceMGetUserResult) FastWrite(buf []byte) int {
+func (p *UserServiceMGetUserNameResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *UserServiceMGetUserResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *UserServiceMGetUserNameResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUser_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "MGetUserName_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -3078,9 +3099,9 @@ func (p *UserServiceMGetUserResult) FastWriteNocopy(buf []byte, binaryWriter bth
 	return offset
 }
 
-func (p *UserServiceMGetUserResult) BLength() int {
+func (p *UserServiceMGetUserNameResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("MGetUser_result")
+	l += bthrift.Binary.StructBeginLength("MGetUserName_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -3089,7 +3110,7 @@ func (p *UserServiceMGetUserResult) BLength() int {
 	return l
 }
 
-func (p *UserServiceMGetUserResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *UserServiceMGetUserNameResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -3099,7 +3120,7 @@ func (p *UserServiceMGetUserResult) fastWriteField0(buf []byte, binaryWriter bth
 	return offset
 }
 
-func (p *UserServiceMGetUserResult) field0Length() int {
+func (p *UserServiceMGetUserNameResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -3133,10 +3154,10 @@ func (p *UserServiceGetUserResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *UserServiceMGetUserArgs) GetFirstArgument() interface{} {
+func (p *UserServiceMGetUserNameArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *UserServiceMGetUserResult) GetResult() interface{} {
+func (p *UserServiceMGetUserNameResult) GetResult() interface{} {
 	return p.Success
 }

@@ -41,35 +41,13 @@ func initrelation() {
 	relationClient = c
 }
 
-func CountFollow(ctx context.Context, req *douyinrelation.CountFollowRequest) (int64, error) {
-	resp, err := relationClient.CountFollow(ctx, req)
+func GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoRequest) ([]*douyinrelation.User, error) {
+	resp, err := relationClient.GetRelationInfo(ctx, req)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	return resp.FollowCount, nil
-}
-
-func CountFollower(ctx context.Context, req *douyinrelation.CountFollowerRequest) (int64, error) {
-	resp, err := relationClient.CountFollower(ctx, req)
-	if err != nil {
-		return 0, err
-	}
-	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-	}
-	return resp.FollowerCount, nil
-}
-
-func IsFollow(ctx context.Context, req *douyinrelation.IsFollowRequest) (bool, error) {
-	resp, err := relationClient.IsFollow(ctx, req)
-	if err != nil {
-		return false, err
-	}
-	if resp.BaseResp.StatusCode != 0 {
-		return false, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-	}
-	return resp.IsFollow, nil
+	return resp.UserList, nil
 }

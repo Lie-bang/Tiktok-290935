@@ -22,18 +22,14 @@ func (s *GetUserService) GetUser(req *douyinuser.GetUserRequest) (*douyinuser.Us
 	if err != nil {
 		return nil, err
 	}
-	followCount, err := rpc.CountFollow(s.ctx, &douyinrelation.CountFollowRequest{UserId: req.ToUserId})
-	if err != nil {
-		return nil, err
-	}
-	followerCount, err := rpc.CountFollower(s.ctx, &douyinrelation.CountFollowerRequest{UserId: req.ToUserId})
-	if err != nil {
-		return nil, err
-	}
-	isFollow, err := rpc.IsFollow(s.ctx, &douyinrelation.IsFollowRequest{
-		UserId:   req.UserId,
-		ToUserId: req.ToUserId,
-	})
 
-	return pack.User(modelUser, followCount, followerCount, isFollow), nil
+	relationInfo, err := rpc.GetRelationInfo(s.ctx, &douyinrelation.GetRelationInfoRequest{
+		UserId:    req.UserId,
+		ToUserIds: []int64{req.ToUserId},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return pack.User(modelUser, relationInfo[0]), nil
 }

@@ -53,13 +53,13 @@ struct GetUserResponse {
     2: BaseResp base_resp
 }
 
-struct MGetUserRequest {
+struct MGetUserNameRequest {
     1: list<i64> user_ids (vt.min_size = "1")
     2: i64 user_id(vt.gt="0")
 }
 
-struct MGetUserResponse {
-    1: list<User> users
+struct MGetUserNameResponse {
+    1: map<i64,string> usernames
     2: BaseResp base_resp
 }
 
@@ -67,5 +67,5 @@ service UserService {
     CreateUserResponse CreateUser(1: CreateUserRequest req)
     CheckUserResponse CheckUser(1: CheckUserRequest req)
     GetUserResponse GetUser(1: GetUserRequest req)
-    MGetUserResponse MGetUser(1: MGetUserRequest req)
+    MGetUserNameResponse MGetUserName(1: MGetUserNameRequest req)
 }

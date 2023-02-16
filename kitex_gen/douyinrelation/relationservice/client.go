@@ -15,9 +15,7 @@ type Client interface {
 	FollowList(ctx context.Context, req *douyinrelation.FollowListRequest, callOptions ...callopt.Option) (r *douyinrelation.FollowListResponse, err error)
 	FollowerList(ctx context.Context, req *douyinrelation.FollowerListRequest, callOptions ...callopt.Option) (r *douyinrelation.FollowerListResponse, err error)
 	FriendList(ctx context.Context, req *douyinrelation.FriendListRequest, callOptions ...callopt.Option) (r *douyinrelation.FriendListResponse, err error)
-	CountFollow(ctx context.Context, req *douyinrelation.CountFollowRequest, callOptions ...callopt.Option) (r *douyinrelation.CountFollowResponse, err error)
-	CountFollower(ctx context.Context, req *douyinrelation.CountFollowerRequest, callOptions ...callopt.Option) (r *douyinrelation.CountFollowerResponse, err error)
-	IsFollow(ctx context.Context, req *douyinrelation.IsFollowRequest, callOptions ...callopt.Option) (r *douyinrelation.IsFollowResponse, err error)
+	GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoRequest, callOptions ...callopt.Option) (r *douyinrelation.GetRelationInfoResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -69,17 +67,7 @@ func (p *kRelationServiceClient) FriendList(ctx context.Context, req *douyinrela
 	return p.kClient.FriendList(ctx, req)
 }
 
-func (p *kRelationServiceClient) CountFollow(ctx context.Context, req *douyinrelation.CountFollowRequest, callOptions ...callopt.Option) (r *douyinrelation.CountFollowResponse, err error) {
+func (p *kRelationServiceClient) GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoRequest, callOptions ...callopt.Option) (r *douyinrelation.GetRelationInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.CountFollow(ctx, req)
-}
-
-func (p *kRelationServiceClient) CountFollower(ctx context.Context, req *douyinrelation.CountFollowerRequest, callOptions ...callopt.Option) (r *douyinrelation.CountFollowerResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.CountFollower(ctx, req)
-}
-
-func (p *kRelationServiceClient) IsFollow(ctx context.Context, req *douyinrelation.IsFollowRequest, callOptions ...callopt.Option) (r *douyinrelation.IsFollowResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.IsFollow(ctx, req)
+	return p.kClient.GetRelationInfo(ctx, req)
 }

@@ -17,11 +17,11 @@ type User struct {
 	IsFollow      bool
 }
 
-func FollowAction(ctx context.Context, UserId, FollowerId int64) error {
+func FollowAction(ctx context.Context, userId, toUserId int64) error {
 	_, err := RDB.ZRank(
 		ctx,
-		fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
-		strconv.FormatInt(FollowerId, 10)).Result()
+		fmt.Sprintf("%s%d", consts.UserFollowList, userId),
+		strconv.FormatInt(toUserId, 10)).Result()
 	if err != nil {
 		if err != redis.Nil {
 			return errno.RedisServiceErr
@@ -35,19 +35,19 @@ func FollowAction(ctx context.Context, UserId, FollowerId int64) error {
 	cmds, err := RDB.Pipelined(ctx, func(pipe redis.Pipeliner) error {
 		pipe.ZAdd(
 			ctx,
-			fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, userId),
 			redis.Z{
 				Score:  float64(now.Unix()),
-				Member: FollowerId,
+				Member: toUserId,
 			},
 		)
 
 		pipe.ZAdd(
 			ctx,
-			fmt.Sprintf("%s%d", consts.UserFollowerList, FollowerId),
+			fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId),
 			redis.Z{
 				Score:  float64(now.Unix()),
-				Member: UserId,
+				Member: userId,
 			},
 		)
 
@@ -65,11 +65,11 @@ func FollowAction(ctx context.Context, UserId, FollowerId int64) error {
 	return nil
 }
 
-func DeleteFollowAction(ctx context.Context, UserId, FollowerId int64) error {
+func DeleteFollowAction(ctx context.Context, userId, toUserId int64) error {
 	_, err := RDB.ZRank(
 		ctx,
-		fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
-		strconv.FormatInt(FollowerId, 10)).Result()
+		fmt.Sprintf("%s%d", consts.UserFollowList, userId),
+		strconv.FormatInt(toUserId, 10)).Result()
 	if err != nil {
 		if err != redis.Nil {
 			return errno.RedisServiceErr
@@ -81,14 +81,14 @@ func DeleteFollowAction(ctx context.Context, UserId, FollowerId int64) error {
 	_, err = RDB.Pipelined(ctx, func(pipe redis.Pipeliner) error {
 		pipe.ZRem(
 			ctx,
-			fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
-			FollowerId,
+			fmt.Sprintf("%s%d", consts.UserFollowList, userId),
+			toUserId,
 		)
 
 		pipe.ZRem(
 			ctx,
-			fmt.Sprintf("%s%d", consts.UserFollowerList, FollowerId),
-			UserId,
+			fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId),
+			userId,
 		)
 
 		return nil
@@ -99,16 +99,16 @@ func DeleteFollowAction(ctx context.Context, UserId, FollowerId int64) error {
 	return nil
 }
 
-func FollowList(ctx context.Context, UserId, FollowId int64) ([]*User, error) {
-	ids, err := RDB.ZRange(ctx, fmt.Sprintf("%s%d", consts.UserFollowList, FollowId), 0, -1).Result()
+func FollowList(ctx context.Context, userId, toUserId int64) ([]*User, error) {
+	ids, err := RDB.ZRange(ctx, fmt.Sprintf("%s%d", consts.UserFollowList, toUserId), 0, -1).Result()
 	if err != nil {
 		return nil, errno.RedisServiceErr
 	}
 
 	interIds, err := RDB.ZInter(ctx, &redis.ZStore{
 		Keys: []string{
-			fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
-			fmt.Sprintf("%s%d", consts.UserFollowList, FollowId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, userId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, toUserId),
 		},
 	}).Result()
 	if err != nil {
@@ -154,16 +154,16 @@ func FollowList(ctx context.Context, UserId, FollowId int64) ([]*User, error) {
 	return users, nil
 }
 
-func FollowerList(ctx context.Context, UserId, FollowerId int64) ([]*User, error) {
-	ids, err := RDB.ZRange(ctx, fmt.Sprintf("%s%d", consts.UserFollowerList, FollowerId), 0, -1).Result()
+func FollowerList(ctx context.Context, userId, toUserId int64) ([]*User, error) {
+	ids, err := RDB.ZRange(ctx, fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId), 0, -1).Result()
 	if err != nil {
 		return nil, errno.RedisServiceErr
 	}
 
 	interIds, err := RDB.ZInter(ctx, &redis.ZStore{
 		Keys: []string{
-			fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
-			fmt.Sprintf("%s%d", consts.UserFollowerList, FollowerId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, userId),
+			fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId),
 		},
 	}).Result()
 	if err != nil {
@@ -210,11 +210,11 @@ func FollowerList(ctx context.Context, UserId, FollowerId int64) ([]*User, error
 	return users, nil
 }
 
-func FriendList(ctx context.Context, UserId, FriendId int64) ([]*User, error) {
+func FriendList(ctx context.Context, userId, toUserId int64) ([]*User, error) {
 	ids, err := RDB.ZInter(ctx, &redis.ZStore{
 		Keys: []string{
-			fmt.Sprintf("%s%d", consts.UserFollowList, FriendId),
-			fmt.Sprintf("%s%d", consts.UserFollowerList, FriendId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, toUserId),
+			fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId),
 		},
 	}).Result()
 	if err != nil {
@@ -223,9 +223,9 @@ func FriendList(ctx context.Context, UserId, FriendId int64) ([]*User, error) {
 
 	interIds, err := RDB.ZInter(ctx, &redis.ZStore{
 		Keys: []string{
-			fmt.Sprintf("%s%d", consts.UserFollowList, FriendId),
-			fmt.Sprintf("%s%d", consts.UserFollowerList, FriendId),
-			fmt.Sprintf("%s%d", consts.UserFollowList, UserId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, toUserId),
+			fmt.Sprintf("%s%d", consts.UserFollowerList, toUserId),
+			fmt.Sprintf("%s%d", consts.UserFollowList, userId),
 		},
 	}).Result()
 	if err != nil {
@@ -272,11 +272,10 @@ func FriendList(ctx context.Context, UserId, FriendId int64) ([]*User, error) {
 	return users, nil
 }
 
-func CountFollowAndFollower(ctx context.Context, id string) (int64, int64, error) {
+func CountFollowAndFollower(ctx context.Context, toUserId string) (int64, int64, error) {
 	cmds, err := RDB.Pipelined(ctx, func(pipe redis.Pipeliner) error {
-		pipe.ZCard(ctx, consts.UserFollowList+id)
-		pipe.ZCard(ctx, consts.UserFollowerList+id)
-
+		pipe.ZCard(ctx, consts.UserFollowList+toUserId)
+		pipe.ZCard(ctx, consts.UserFollowerList+toUserId)
 		return nil
 	})
 	if err != nil {
@@ -293,8 +292,8 @@ func CountFollowAndFollower(ctx context.Context, id string) (int64, int64, error
 	return followCnt, followerCnt, nil
 }
 
-func IsFollow(ctx context.Context, userId, FollowId int64) (bool, error) {
-	_, err := RDB.ZRank(ctx, fmt.Sprintf("%s%d", consts.UserFollowList, userId), fmt.Sprintf("%d", FollowId)).Result()
+func IsFollow(ctx context.Context, userId int64, toUserId int64) (bool, error) {
+	_, err := RDB.ZRank(ctx, fmt.Sprintf("%s%d", consts.UserFollowList, userId), fmt.Sprintf("%d", toUserId)).Result()
 	if err != nil {
 		if err != redis.Nil {
 			return false, err

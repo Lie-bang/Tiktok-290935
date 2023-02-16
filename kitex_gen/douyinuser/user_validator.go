@@ -89,7 +89,7 @@ func (p *GetUserResponse) IsValid() error {
 	}
 	return nil
 }
-func (p *MGetUserRequest) IsValid() error {
+func (p *MGetUserNameRequest) IsValid() error {
 	if len(p.UserIds) < int(1) {
 		return fmt.Errorf("field UserIds MinLen rule failed, current value: %v", p.UserIds)
 	}
@@ -98,7 +98,7 @@ func (p *MGetUserRequest) IsValid() error {
 	}
 	return nil
 }
-func (p *MGetUserResponse) IsValid() error {
+func (p *MGetUserNameResponse) IsValid() error {
 	if p.BaseResp != nil {
 		if err := p.BaseResp.IsValid(); err != nil {
 			return fmt.Errorf("filed BaseResp not valid, %w", err)

@@ -42,17 +42,13 @@ func initUser() {
 }
 
 // MGetUser multiple get list of user info
-func MGetUser(ctx context.Context, req *douyinuser.MGetUserRequest) (map[int64]*douyinuser.User, error) {
-	resp, err := userClient.MGetUser(ctx, req)
+func MGetUser(ctx context.Context, req *douyinuser.MGetUserNameRequest) (map[int64]string, error) {
+	resp, err := userClient.MGetUserName(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
 		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	res := make(map[int64]*douyinuser.User)
-	for _, u := range resp.Users {
-		res[u.UserId] = u
-	}
-	return res, nil
+	return resp.Usernames, nil
 }
