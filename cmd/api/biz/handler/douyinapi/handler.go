@@ -125,7 +125,7 @@ type TestMessage struct {
 	ToUserID   int64  `json:"to_user_id"`
 	FromUserID int64  `json:"from_user_id"`
 	Content    string `json:"content"`
-	CreateTime int64 `json:"create_time"`
+	CreateTime int64  `json:"create_time"`
 }
 
 func MsgMessageToTestMessage(msg *douyinmessage.Message) *TestMessage {
@@ -177,6 +177,42 @@ func SendUserResponse(c *app.RequestContext, err error, user *douyinapi.User) {
 		User:       user,
 	})
 }
+
+//type TestUser struct {
+//	ID            int64  `form:"id" json:"id" query:"id"`
+//	Name          string `form:"name" json:"name" query:"name"`
+//	FollowCount   int64  `form:"follow_count" json:"follow_count" query:"follow_count"`
+//	FollowerCount int64  `form:"follower_count" json:"follower_count" query:"follower_count"`
+//	IsFollow      bool   `form:"is_follow" json:"is_follow" query:"is_follow"`
+//	Avatar        string `form:"avatar" json:"avatar" query:"avatar"`
+//	Work          int64  `json:"work_count" `
+//	Like          int64  `json:"favorite_count" `
+//}
+//
+//type ApiUserResponseTest struct {
+//	StatusCode int64    `json:"status_code"` // 状态码，0-成功，其他值-失败
+//	StatusMsg  string   `json:"status_msg"`  // 返回状态描述
+//	User       TestUser `json:"user"`        // 用户信息
+//}
+//
+//func SendUserResponseTest(c *app.RequestContext, err error, user *douyinapi.User) {
+//	Err := errno.ConvertErr(err)
+//	testUser := TestUser{
+//		ID:            user.ID,
+//		Name:          user.Name,
+//		FollowCount:   user.FollowCount,
+//		FollowerCount: user.FollowerCount,
+//		IsFollow:      user.IsFollow,
+//		Avatar:        user.Avatar,
+//		Work:          12,
+//		Like:          12,
+//	}
+//	c.JSON(consts.StatusOK, ApiUserResponseTest{
+//		StatusCode: Err.ErrCode,
+//		StatusMsg:  Err.ErrMsg,
+//		User:       testUser,
+//	})
+//}
 
 func SendUsersResponse(c *app.RequestContext, err error, users []*douyinapi.User) {
 	Err := errno.ConvertErr(err)

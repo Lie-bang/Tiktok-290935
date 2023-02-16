@@ -37,7 +37,7 @@ func (s *ChatRecordService) ChatRecord(req *douyinmessage.ChatRecordRequest) ([]
 		return nil, nil
 	}
 
-	err = rdb.UpdateLastTime(s.ctx, req.UserId, req.ToUserId, messageModels[lens-1].CreateTime)
+	err = rdb.UpdateLastTime(s.ctx, req.UserId, req.ToUserId, messageModels[lens-1].CreatedTime)
 	messages := pack.Messages(messageModels)
 	return messages, nil
 }

@@ -74,7 +74,6 @@ func DeleteFollowAction(ctx context.Context, userId, toUserId int64) error {
 		if err != redis.Nil {
 			return errno.RedisServiceErr
 		}
-	} else {
 		return nil
 	}
 

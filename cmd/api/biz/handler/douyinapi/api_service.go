@@ -104,8 +104,10 @@ func FollowList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	v, _ := c.Get(consts.IdentityKey)
 	rUsers, err := rpc.FollowList(context.Background(), &douyinrelation.FollowListRequest{
-		UserId: req.UserID,
+		UserId:   v.(*douyinapi.User).ID,
+		ToUserId: req.UserID,
 	})
 	if err != nil {
 		SendUsersResponse(c, errno.ConvertErr(err), nil)
@@ -127,8 +129,10 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	v, _ := c.Get(consts.IdentityKey)
 	rUsers, err := rpc.FollowerList(context.Background(), &douyinrelation.FollowerListRequest{
-		UserId: req.UserID,
+		UserId:   v.(*douyinapi.User).ID,
+		ToUserId: req.UserID,
 	})
 	if err != nil {
 		SendUsersResponse(c, errno.ConvertErr(err), nil)
@@ -150,8 +154,10 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	v, _ := c.Get(consts.IdentityKey)
 	rFriendUsers, err := rpc.FriendList(context.Background(), &douyinrelation.FriendListRequest{
-		UserId: req.UserID,
+		UserId:   v.(*douyinapi.User).ID,
+		ToUserId: req.UserID,
 	})
 	if err != nil {
 		SendFriendUsersResponse(c, errno.ConvertErr(err), nil)

@@ -17,7 +17,7 @@ func Message(m *db.Message) *douyinmessage.Message {
 		ToUserId:   m.ToUserId,
 		FromUserId: m.UserId,
 		Content:    m.Content,
-		CreateTime: m.CreateTime,
+		CreateTime: m.CreatedTime,
 	}
 }
 
