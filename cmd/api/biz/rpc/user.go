@@ -51,7 +51,7 @@ func CreateUser(ctx context.Context, req *douyinuser.CreateUserRequest) error {
 		return err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return nil
 }
@@ -62,7 +62,7 @@ func CheckUser(ctx context.Context, req *douyinuser.CheckUserRequest) (int64, er
 		return 0, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.UserId, nil
 }
@@ -73,7 +73,7 @@ func GerUser(ctx context.Context, req *douyinuser.GetUserRequest) (*douyinuser.U
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.User, nil
 }

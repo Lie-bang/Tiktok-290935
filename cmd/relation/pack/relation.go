@@ -10,12 +10,12 @@ func ToRUser(userRModels []*rdb.User, usersMap map[int64]string) []*douyinrelati
 	var rUsers []*douyinrelation.User
 	for _, u := range userRModels {
 		rUsers = append(rUsers, &douyinrelation.User{
-			UserId:        u.ID,
-			Username:      usersMap[u.ID],
-			FollowCount:   u.FollowCount,
-			FollowerCount: u.FollowerCount,
+			Id:            u.ID,
+			Name:          usersMap[u.ID],
+			FollowCount:   &u.FollowCount,
+			FollowerCount: &u.FollowerCount,
 			IsFollow:      u.IsFollow,
-			Avatar:        "empty",
+			Avatar:        nil,
 		})
 	}
 	return rUsers
@@ -41,16 +41,17 @@ func ToFirstMessage(messages []*douyinmessage.Message, userId int64) (map[int64]
 func ToFriendUser(userRModels []*rdb.User, usersMap map[int64]string, contents map[int64]string, msgTypes map[int64]int64) []*douyinrelation.FriendUser {
 	var rUsers []*douyinrelation.FriendUser
 	for _, u := range userRModels {
+		content := contents[u.ID]
 		rUsers = append(rUsers, &douyinrelation.FriendUser{
 			User: &douyinrelation.User{
-				UserId:        u.ID,
-				Username:      usersMap[u.ID],
-				FollowCount:   u.FollowCount,
-				FollowerCount: u.FollowerCount,
+				Id:            u.ID,
+				Name:          usersMap[u.ID],
+				FollowCount:   &u.FollowCount,
+				FollowerCount: &u.FollowerCount,
 				IsFollow:      u.IsFollow,
-				Avatar:        "test",
+				Avatar:        nil,
 			},
-			Message: contents[u.ID],
+			Message: &content,
 			MsgType: msgTypes[u.ID],
 		})
 	}

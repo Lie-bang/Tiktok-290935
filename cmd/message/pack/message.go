@@ -13,11 +13,11 @@ func Message(m *db.Message) *douyinmessage.Message {
 	//createTime := fmt.Sprintf("%v", m.CreatedAt.Format("2006-01-02 15:04:05"))
 
 	return &douyinmessage.Message{
-		MsgId:      int64(m.ID),
+		Id:         int64(m.ID),
 		ToUserId:   m.ToUserId,
 		FromUserId: m.UserId,
 		Content:    m.Content,
-		CreateTime: m.CreatedTime,
+		CreateTime: &m.CreatedTime,
 	}
 }
 

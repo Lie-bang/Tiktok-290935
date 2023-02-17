@@ -22,5 +22,5 @@ func BuildBaseResp(err error) *douyinrelation.BaseResp {
 }
 
 func baseResp(err errno.ErrNo) *douyinrelation.BaseResp {
-	return &douyinrelation.BaseResp{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
+	return &douyinrelation.BaseResp{StatusCode: err.ErrCode, StatusMessage: &err.ErrMsg, ServiceTime: time.Now().Unix()}
 }

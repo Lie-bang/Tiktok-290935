@@ -12,12 +12,12 @@ func User(u *db.User, relationInfo *douyinrelation.User) *douyinuser.User {
 	}
 
 	return &douyinuser.User{
-		UserId:        int64(u.ID),
-		Username:      u.Username,
+		Id:            int64(u.ID),
+		Name:          u.Username,
 		FollowCount:   relationInfo.FollowCount,
 		FollowerCount: relationInfo.FollowerCount,
 		IsFollow:      relationInfo.IsFollow,
-		Avatar:        "test",
+		Avatar:        nil,
 	}
 }
 

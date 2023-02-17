@@ -115,6 +115,9 @@ func (p *FriendListResponse) IsValid() error {
 	return nil
 }
 func (p *GetRelationInfoRequest) IsValid() error {
+	if p.UserId <= int64(0) {
+		return fmt.Errorf("field UserId gt rule failed, current value: %v", p.UserId)
+	}
 	return nil
 }
 func (p *GetRelationInfoResponse) IsValid() error {

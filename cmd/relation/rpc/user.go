@@ -48,7 +48,7 @@ func MGetUser(ctx context.Context, req *douyinuser.MGetUserNameRequest) (map[int
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.Usernames, nil
 }

@@ -29,12 +29,12 @@ func (s *GetRelationInfoService) GetRelationInfo(req *douyinrelation.GetRelation
 			return nil, err
 		}
 		followUsers = append(followUsers, &douyinrelation.User{
-			UserId:        toUserId,
-			Username:      "",
-			FollowCount:   followCount,
-			FollowerCount: followerCount,
+			Id:            toUserId,
+			Name:          "",
+			FollowCount:   &followCount,
+			FollowerCount: &followerCount,
 			IsFollow:      isFollow,
-			Avatar:        "test",
+			Avatar:        nil,
 		})
 	}
 	return followUsers, nil

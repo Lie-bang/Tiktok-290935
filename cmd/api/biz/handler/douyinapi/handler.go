@@ -11,24 +11,24 @@ import (
 )
 
 type BaseResponse struct {
-	StatusCode int64  `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusCode int32  `json:"status_code"` // 状态码，0-成功，其他值-失败
 	StatusMsg  string `json:"status_msg"`  // 返回状态描述
 }
 
 type ApiUserResponse struct {
-	StatusCode int64           `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusCode int32           `json:"status_code"` // 状态码，0-成功，其他值-失败
 	StatusMsg  string          `json:"status_msg"`  // 返回状态描述
 	User       *douyinapi.User `json:"user"`        // 用户信息
 }
 
 type ApiUsersResponse struct {
-	StatusCode int64             `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusCode int32             `json:"status_code"` // 状态码，0-成功，其他值-失败
 	StatusMsg  string            `json:"status_msg"`  // 返回状态描述
 	UserList   []*douyinapi.User `json:"user_list"`   // 用户列表
 }
 
 type ApiFriendUserResponse struct {
-	StatusCode int64                   `json:"status_code"` // 状态码，0-成功，其他值-失败
+	StatusCode int32                   `json:"status_code"` // 状态码，0-成功，其他值-失败
 	StatusMsg  string                  `json:"status_msg"`  // 返回状态描述
 	UserList   []*douyinapi.FriendUser `json:"user_list"`   // 用户列表
 }
@@ -48,12 +48,17 @@ type ApiMessageResponse struct {
 
 func UserUserToApiUser(user *douyinuser.User) *douyinapi.User {
 	return &douyinapi.User{
-		ID:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   user.FollowCount,
-		FollowerCount: user.FollowerCount,
-		IsFollow:      user.IsFollow,
-		Avatar:        user.Avatar,
+		ID:              user.Id,
+		Name:            user.Name,
+		FollowCount:     user.FollowCount,
+		FollowerCount:   user.FollowerCount,
+		IsFollow:        user.IsFollow,
+		Avatar:          nil,
+		BackgroundImage: nil,
+		Signature:       nil,
+		TotalFavorited:  nil,
+		WorkCount:       nil,
+		FavoriteCount:   nil,
 	}
 }
 
@@ -62,12 +67,17 @@ func RelationUserToApiUser(user *douyinrelation.User) *douyinapi.User {
 		return nil
 	}
 	return &douyinapi.User{
-		ID:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   user.FollowCount,
-		FollowerCount: user.FollowerCount,
-		IsFollow:      user.IsFollow,
-		Avatar:        user.Avatar,
+		ID:              user.Id,
+		Name:            user.Name,
+		FollowCount:     user.FollowCount,
+		FollowerCount:   user.FollowerCount,
+		IsFollow:        user.IsFollow,
+		Avatar:          nil,
+		BackgroundImage: nil,
+		Signature:       nil,
+		TotalFavorited:  nil,
+		WorkCount:       nil,
+		FavoriteCount:   nil,
 	}
 }
 
@@ -86,14 +96,19 @@ func RelationFriendUserToApiFriendUser(user *douyinrelation.FriendUser) *douyina
 		return nil
 	}
 	return &douyinapi.FriendUser{
-		ID:            user.User.UserId,
-		Name:          user.User.Username,
-		FollowCount:   user.User.FollowCount,
-		FollowerCount: user.User.FollowerCount,
-		IsFollow:      user.User.IsFollow,
-		Message:       user.Message,
-		MsgType:       user.MsgType,
-		Avatar:        user.User.Avatar,
+		ID:              user.User.Id,
+		Name:            user.User.Name,
+		FollowCount:     user.User.FollowCount,
+		FollowerCount:   user.User.FollowerCount,
+		IsFollow:        user.User.IsFollow,
+		Message:         user.Message,
+		MsgType:         user.MsgType,
+		Avatar:          nil,
+		BackgroundImage: nil,
+		Signature:       nil,
+		TotalFavorited:  nil,
+		WorkCount:       nil,
+		FavoriteCount:   nil,
 	}
 }
 
@@ -112,7 +127,7 @@ func MsgMessageToApiMessage(msg *douyinmessage.Message) *douyinapi.Message {
 		return nil
 	}
 	return &douyinapi.Message{
-		ID:         msg.MsgId,
+		ID:         msg.Id,
 		ToUserID:   msg.ToUserId,
 		FromUserID: msg.FromUserId,
 		Content:    msg.Content,
@@ -121,7 +136,7 @@ func MsgMessageToApiMessage(msg *douyinmessage.Message) *douyinapi.Message {
 }
 
 type TestMessage struct {
-	ID         int64  `json:"id""`
+	ID         int64  `json:"id"`
 	ToUserID   int64  `json:"to_user_id"`
 	FromUserID int64  `json:"from_user_id"`
 	Content    string `json:"content"`
@@ -133,11 +148,11 @@ func MsgMessageToTestMessage(msg *douyinmessage.Message) *TestMessage {
 		return nil
 	}
 	return &TestMessage{
-		ID:         msg.MsgId,
+		ID:         msg.Id,
 		ToUserID:   msg.ToUserId,
 		FromUserID: msg.FromUserId,
 		Content:    msg.Content,
-		CreateTime: 1675843303941,
+		CreateTime: *msg.CreateTime,
 	}
 }
 
@@ -163,17 +178,17 @@ func MsgMessagesToApiMessages(msgs []*douyinmessage.Message) []*douyinapi.Messag
 
 func SendResponse(c *app.RequestContext, err error) {
 	Err := errno.ConvertErr(err)
-	c.JSON(consts.StatusOK, BaseResponse{
+	c.JSON(consts.StatusOK, douyinapi.BaseResponse{
 		StatusCode: Err.ErrCode,
-		StatusMsg:  Err.ErrMsg,
+		StatusMsg:  &Err.ErrMsg,
 	})
 }
 
 func SendUserResponse(c *app.RequestContext, err error, user *douyinapi.User) {
 	Err := errno.ConvertErr(err)
-	c.JSON(consts.StatusOK, ApiUserResponse{
+	c.JSON(consts.StatusOK, douyinapi.ApiUserResponse{
 		StatusCode: Err.ErrCode,
-		StatusMsg:  Err.ErrMsg,
+		StatusMsg:  &Err.ErrMsg,
 		User:       user,
 	})
 }
@@ -190,7 +205,7 @@ func SendUserResponse(c *app.RequestContext, err error, user *douyinapi.User) {
 //}
 //
 //type ApiUserResponseTest struct {
-//	StatusCode int64    `json:"status_code"` // 状态码，0-成功，其他值-失败
+//	StatusCode int32    `json:"status_code"` // 状态码，0-成功，其他值-失败
 //	StatusMsg  string   `json:"status_msg"`  // 返回状态描述
 //	User       TestUser `json:"user"`        // 用户信息
 //}
@@ -216,18 +231,18 @@ func SendUserResponse(c *app.RequestContext, err error, user *douyinapi.User) {
 
 func SendUsersResponse(c *app.RequestContext, err error, users []*douyinapi.User) {
 	Err := errno.ConvertErr(err)
-	c.JSON(consts.StatusOK, ApiUsersResponse{
+	c.JSON(consts.StatusOK, douyinapi.ApiUsersResponse{
 		StatusCode: Err.ErrCode,
-		StatusMsg:  Err.ErrMsg,
+		StatusMsg:  &Err.ErrMsg,
 		UserList:   users,
 	})
 }
 
 func SendFriendUsersResponse(c *app.RequestContext, err error, users []*douyinapi.FriendUser) {
 	Err := errno.ConvertErr(err)
-	c.JSON(consts.StatusOK, ApiFriendUserResponse{
+	c.JSON(consts.StatusOK, douyinapi.ApiFriendUsersResponse{
 		StatusCode: Err.ErrCode,
-		StatusMsg:  Err.ErrMsg,
+		StatusMsg:  &Err.ErrMsg,
 		UserList:   users,
 	})
 }
@@ -244,9 +259,9 @@ func SendMessageTestResponse(c *app.RequestContext, err error, messages []*TestM
 
 func SendMessageResponse(c *app.RequestContext, err error, messages []*douyinapi.Message) {
 	Err := errno.ConvertErr(err)
-	c.JSON(consts.StatusOK, ApiMessageResponse{
+	c.JSON(consts.StatusOK, douyinapi.ApiMessageResponse{
 		StatusCode:  int32(Err.ErrCode),
-		StatusMsg:   Err.ErrMsg,
+		StatusMsg:   &Err.ErrMsg,
 		MessageList: messages,
 		//MessageList: messages,
 	})

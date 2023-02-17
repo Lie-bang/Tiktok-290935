@@ -22,4 +22,5 @@ const (
 	RedisChatRecord     = "ChatRecord"
 	UserFollowList      = "{userfollowlist}:"
 	UserFollowerList    = "{userfollowerlist}:"
+	Avatar              = "test"
 )

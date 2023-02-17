@@ -47,7 +47,7 @@ func GetRelationInfo(ctx context.Context, req *douyinrelation.GetRelationInfoReq
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.UserList, nil
 }

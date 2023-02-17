@@ -50,7 +50,7 @@ func ChatRecord(ctx context.Context, req *douyinmessage.ChatRecordRequest) ([]*d
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.MsgList, nil
 }
@@ -61,7 +61,7 @@ func SendMessage(ctx context.Context, req *douyinmessage.SendMessageRequest) err
 		return err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return nil
 }

@@ -1,115 +1,173 @@
 namespace go douyinapi
 
-struct BaseResp {
-    1: i64 status_code
-    2: string status_message
-    3: i64 service_time
-}
-
 struct User {
-    1: i64 id
-    2: string name
-    3: i64 follow_count
-    4: i64 follower_count
-    5: bool is_follow
-    6: string avatar
+    1: required i64 id
+    2: required string name
+    3: optional i64 follow_count
+    4: optional i64 follower_count
+    5: required bool is_follow
+    6: optional string avatar
+    7: optional string background_image
+    8: optional string signature
+    9: optional i64 total_favorited
+    10: optional i64 work_count
+    11: optional i64 favorite_count
 }
 
 struct FriendUser {
-    1: i64 id
-    2: string name
-    3: i64 follow_count
-    4: i64 follower_count
-    5: bool is_follow
-    6: string message
-    7: i64 msgType
-    8: string avatar
+    1: required i64 id
+    2: required string name
+    3: optional i64 follow_count
+    4: optional i64 follower_count
+    5: required bool is_follow
+    6: optional string avatar
+    7: optional string background_image
+    8: optional string signature
+    9: optional i64 total_favorited
+    10: optional i64 work_count
+    11: optional i64 favorite_count
+    12: optional string message
+    13: required i64 msgType
 }
 
 struct Message {
-    1: i64 id
-    2: i64 to_user_id
-    3: i64 from_user_id
-    4: string content
-    5: i64 create_time
+    1: required i64 id
+    2: required i64 to_user_id
+    3: required i64 from_user_id
+    4: required string content
+    5: optional i64 create_time
+}
+struct BaseResponse{
+    1: required i32 status_code
+    2: optional string status_msg
+}
+
+struct ApiUserResponse{
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required User user
+}
+
+struct ApiUsersResponse{
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<User> user_list
+}
+
+struct ApiFriendUsersResponse{
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<FriendUser> user_list
+}
+
+struct ApiMessageResponse{
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<Message> message_list
 }
 
 
 struct CreateUserRequest {
-    1: string username (api.query="username", api.vd="len($) > 0")
-    2: string password (api.query="password", api.vd="len($) > 0")
+    1: required string username (api.query="username", api.vd="len($) > 0")
+    2: required string password (api.query="password", api.vd="len($) > 0")
 }
 
 struct CreateUserResponse {
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required i64 user_id
+    4: required string token
 }
 
 struct CheckUserRequest {
-    1: string username (api.query="username", api.vd="len($) > 0")
-    2: string password (api.query="password", api.vd="len($) > 0")
+    1: required string username (api.query="username", api.vd="len($) > 0")
+    2: required string password (api.query="password", api.vd="len($) > 0")
 }
 
 struct CheckUserResponse {
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required i64 user_id
+    4: required string token
 }
 
 struct GetUserRequest {
-    1: i64 user_id
+    1: required i64 user_id
+    2: required string token
 }
 
 struct GetUserResponse {
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required User user
 }
 
 struct ActionRequest{
-    1: i64 to_user_id
-    2: i32 action_type
+    1: required i64 to_user_id
+    2: required i32 action_type
+    3: required string token
 }
 
 struct ActionResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
 }
 
 struct FollowListRequest{
-    1: i64 user_id
+    1: required i64 user_id
+    2: required string token
 }
 
 struct FollowListResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<User> user_list
 }
 
 struct FollowerListRequest{
-     1: i64 user_id
+     1: required i64 user_id
+     2: required string token
  }
 
 struct FollowerListResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<User> user_list
 }
 
 struct FriendListRequest{
-    1: i64 user_id
+    1: required i64 user_id
+    2: required string token
 }
 
 struct FriendListResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<FriendUser> user_list
 }
 
 struct ChatRecordRequest{
     1: i64 to_user_id
+    2: required i64 pre_msg_time
+    3: required string token
 }
 
 struct ChatRecordResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
+    3: required list<Message> message_list
 }
 
 struct SendMessageRequest{
-    1: i64 to_user_id
-    2: i64 action_type
-    3: string content
+    1: required i64 to_user_id
+    2: required i64 action_type
+    3: required string content
+    4: required string token
 }
 
 struct SendMessageResponse{
-    1: BaseResp base_resp
+    1: required i32 status_code
+    2: optional string status_msg
 }
 
 service ApiService {

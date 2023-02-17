@@ -50,7 +50,7 @@ func GetFirstMessages(ctx context.Context, req *douyinmessage.GetFirstMessagesRe
 		return nil, nil
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.Messages, nil
 }

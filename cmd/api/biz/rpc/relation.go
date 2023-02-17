@@ -50,7 +50,7 @@ func Action(ctx context.Context, req *douyinrelation.ActionRequest) error {
 		return err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return nil
 }
@@ -61,7 +61,7 @@ func FollowList(ctx context.Context, req *douyinrelation.FollowListRequest) ([]*
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.UserList, nil
 }
@@ -72,7 +72,7 @@ func FollowerList(ctx context.Context, req *douyinrelation.FollowerListRequest) 
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.UserList, nil
 }
@@ -83,7 +83,7 @@ func FriendList(ctx context.Context, req *douyinrelation.FriendListRequest) ([]*
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMessage)
 	}
 	return resp.UserList, nil
 }
