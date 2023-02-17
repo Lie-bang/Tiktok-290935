@@ -12,4 +12,5 @@ func customizedRegister(r *server.Hertz) {
 	r.GET("/ping", handler.Ping)
 
 	// your code ...
+	r.StaticFile("staticpic.jpg", "./static/staticpic.jpg")
 }
