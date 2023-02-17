@@ -202,9 +202,7 @@ func _favoritelistMw() []app.HandlerFunc {
 
 func _feedMw() []app.HandlerFunc {
 	// your code...
-	return []app.HandlerFunc{
-		mw.JwtMiddleware.MiddlewareFunc(),
-	}
+	return nil
 }
 
 func _feedvideoMw() []app.HandlerFunc {
