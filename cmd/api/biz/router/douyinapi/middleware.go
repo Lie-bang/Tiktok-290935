@@ -86,7 +86,9 @@ func _relationMw() []app.HandlerFunc {
 
 func _actionMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
 }
 
 func __ctionMw() []app.HandlerFunc {
@@ -168,9 +170,7 @@ func _action0Mw() []app.HandlerFunc {
 
 func _commentMw() []app.HandlerFunc {
 	// your code...
-	return []app.HandlerFunc{
-		mw.JwtMiddleware.MiddlewareFunc(),
-	}
+	return nil
 }
 
 func _comment_ctionMw() []app.HandlerFunc {
