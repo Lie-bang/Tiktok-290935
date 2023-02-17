@@ -165,3 +165,96 @@ func _action0Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _commentMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _comment_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _commentlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _favoriteMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _favorite_ctionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _favoritelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _feedMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _feedvideoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _action1Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _publishMw() []app.HandlerFunc {
+	// your code...
+	return []app.HandlerFunc{
+		mw.JwtMiddleware.MiddlewareFunc(),
+	}
+}
+
+func _action2Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _publishvideoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _publishlistvideoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _action3Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list2Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list3Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _list4Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

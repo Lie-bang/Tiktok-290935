@@ -13,6 +13,7 @@ import (
 	"douyin/pkg/consts"
 	"douyin/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	consts2 "github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // CreateUser .
@@ -216,4 +217,137 @@ func SendMessage(ctx context.Context, c *app.RequestContext) {
 	}
 
 	SendResponse(c, errno.Success)
+}
+
+// FeedVideo .
+// @router /douyin/feed/ [GET]
+func FeedVideo(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinFeedRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinFeedResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// PublishVideo .
+// @router /douyin/publish/action/ [POST]
+func PublishVideo(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinPublishActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinPublishActionResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// PublishListVideo .
+// @router /douyin/publish/list/ [GET]
+func PublishListVideo(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinPublishListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinPublishListResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// FavoriteAction .
+// @router /douyin/favorite/action/ [POST]
+func FavoriteAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinFavoriteActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinFavoriteActionResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// FavoriteList .
+// @router /douyin/favorite/list/ [GET]
+func FavoriteList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinFavoriteListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinFavoriteListResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// CommentAction .
+// @router /douyin/comment/action/ [POST]
+func CommentAction(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinCommentActionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinCommentActionResponse)
+
+	c.JSON(consts2.StatusOK, resp)
+}
+
+// CommentList .
+// @router /douyin/comment/list/ [GET]
+func CommentList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req douyinapi.DouyinCommentListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts2.StatusBadRequest, err.Error())
+		return
+	}
+
+	v, _ := c.Get(consts.IdentityKey)
+	_ = v.(douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+
+	resp := new(douyinapi.DouyinCommentListResponse)
+
+	c.JSON(consts2.StatusOK, resp)
 }
