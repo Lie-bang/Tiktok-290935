@@ -13,6 +13,11 @@ struct User {
     4: i64 follower_count
     5: bool is_follow
     6: string avatar
+    7: string background_image
+    8: string signature
+    9: i64 total_favorited
+    10: i64 work_count
+    11: i64 favorite_count
 }
 
 struct FriendUser {

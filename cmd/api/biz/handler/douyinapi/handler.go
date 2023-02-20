@@ -47,13 +47,21 @@ type ApiMessageResponse struct {
 }
 
 func UserUserToApiUser(user *douyinuser.User) *douyinapi.User {
+	if user == nil {
+		return nil
+	}
 	return &douyinapi.User{
-		ID:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   user.FollowCount,
-		FollowerCount: user.FollowerCount,
-		IsFollow:      user.IsFollow,
-		Avatar:        user.Avatar,
+		ID:              user.UserId,
+		Name:            user.Username,
+		FollowCount:     user.FollowCount,
+		FollowerCount:   user.FollowerCount,
+		IsFollow:        user.IsFollow,
+		Avatar:          "http://192.168.0.109:8080/myavatar.jpg",
+		BackgroundImage: "http://192.168.0.109:8080/wall.jpg",
+		Signature:       "OH! MY GOD!",
+		TotalFavorited:  1,
+		WorkCount:       1,
+		FavoriteCount:   1,
 	}
 }
 
@@ -62,12 +70,17 @@ func RelationUserToApiUser(user *douyinrelation.User) *douyinapi.User {
 		return nil
 	}
 	return &douyinapi.User{
-		ID:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   user.FollowCount,
-		FollowerCount: user.FollowerCount,
-		IsFollow:      user.IsFollow,
-		Avatar:        user.Avatar,
+		ID:              user.UserId,
+		Name:            user.Username,
+		FollowCount:     user.FollowCount,
+		FollowerCount:   user.FollowerCount,
+		IsFollow:        user.IsFollow,
+		Avatar:          "http://192.168.0.109:8080/myavatar.jpg",
+		BackgroundImage: "http://192.168.0.109:8080/wall.jpg",
+		Signature:       "OH! MY GOD!",
+		TotalFavorited:  1,
+		WorkCount:       1,
+		FavoriteCount:   1,
 	}
 }
 
@@ -93,7 +106,7 @@ func RelationFriendUserToApiFriendUser(user *douyinrelation.FriendUser) *douyina
 		IsFollow:      user.User.IsFollow,
 		Message:       user.Message,
 		MsgType:       user.MsgType,
-		Avatar:        user.User.Avatar,
+		Avatar:        "http://192.168.0.109:8080/avatar.jpg",
 	}
 }
 
