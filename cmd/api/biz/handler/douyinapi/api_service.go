@@ -54,6 +54,17 @@ func GetUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	//var userId int64
+	//if req.Token != "" {
+	//	JWTToken, err := mw.JwtMiddleware.ParseTokenString(req.Token)
+	//	if err != nil {
+	//		SendUserResponse(c, errno.ConvertErr(err), nil)
+	//	}
+	//	claims := jwt.ExtractClaimsFromToken(JWTToken)
+	//	userId=int64(claims[consts.IdentityKey].(float64))
+	//	println(userId)
+	//}
+
 	v, _ := c.Get(consts.IdentityKey)
 	uUser, err := rpc.GerUser(context.Background(), &douyinuser.GetUserRequest{
 		UserId:   v.(*douyinapi.User).ID,

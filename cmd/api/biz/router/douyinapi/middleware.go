@@ -50,6 +50,7 @@ func _getuserMw() []app.HandlerFunc {
 	return []app.HandlerFunc{
 		mw.JwtMiddleware.MiddlewareFunc(),
 	}
+	//return nil
 }
 
 func _userMw() []app.HandlerFunc {

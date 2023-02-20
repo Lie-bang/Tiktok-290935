@@ -17,7 +17,7 @@ func User(u *db.User, relationInfo *douyinrelation.User) *douyinuser.User {
 		FollowCount:   relationInfo.FollowCount,
 		FollowerCount: relationInfo.FollowerCount,
 		IsFollow:      relationInfo.IsFollow,
-		Avatar:        "test",
+		Avatar:        "http://192.168.0.109:8080/avatar.jpg",
 	}
 }
 

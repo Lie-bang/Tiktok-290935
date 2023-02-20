@@ -184,7 +184,7 @@ func FollowerList(ctx context.Context, userId, toUserId int64) ([]*User, error) 
 
 		var isFollow bool
 
-		if ids[i] == interIds[interIndex] {
+		if interIndex < len(interIds) && ids[i] == interIds[interIndex] {
 			isFollow = true
 			interIndex++
 		}
