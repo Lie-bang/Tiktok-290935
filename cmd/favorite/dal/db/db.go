@@ -24,7 +24,7 @@ func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavorite
 	var fav Favorite_db
 	var video db.Video_db
 
-	videoExist := DB.WithContext(ctx).Where("video_id = ?", request.VideoId).Find(&fav)
+	videoExist := DB.WithContext(ctx).Where("id = ?", request.VideoId).Find(&video)
 	if videoExist.Error != nil {
 		log.Print(videoExist.Error)
 		return false, videoExist.Error
@@ -133,6 +133,6 @@ func QueryFavoriteCountByUser(ctx context.Context, request *douyinfavorite.Douyi
 		log.Print(result.Error)
 		return 0, result.Error
 	}
-	
+
 	return result.RowsAffected, nil
 }
