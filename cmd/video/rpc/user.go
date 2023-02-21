@@ -14,26 +14,7 @@ import (
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
 
-//var videoClient videoservice.Client
-
 var userClient userservice.Client
-
-//func initUser() {
-//	r, err := etcd.NewEtcdResolver([]string{consts.ETCDAddress})
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	c, err := videoservice.NewClient(
-//		consts.VideoServiceName,
-//		client.WithResolver(r),
-//		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.VideoServiceName}),
-//	)
-//	if err != nil {
-//		panic(err)
-//	}
-//	videoClient = c
-//}
 
 func initUser() {
 	r, err := etcd.NewEtcdResolver([]string{consts.ETCDAddress})

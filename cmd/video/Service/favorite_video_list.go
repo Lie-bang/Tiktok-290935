@@ -5,7 +5,6 @@ import (
 	"douyin/cmd/video/dal/db"
 	"douyin/cmd/video/pack"
 	"douyin/kitex_gen/douyinvideo"
-	"fmt"
 	"log"
 )
 
@@ -18,7 +17,6 @@ func NewFavoriteVideoListService(ctx context.Context) *FavoriteVideoListService 
 }
 
 func (f *FavoriteVideoListService) FavoriteVideoList(req *douyinvideo.DouyinFavoriteListRequest) ([]*douyinvideo.Video, error) {
-	fmt.Println("get in db.QueryFavoriteVideoList")
 	res, err := db.QueryFavoriteVideoList(f.ctx, req.VideoId)
 	if err != nil {
 		log.Print(err)
@@ -29,7 +27,6 @@ func (f *FavoriteVideoListService) FavoriteVideoList(req *douyinvideo.DouyinFavo
 	douyinvideoUserList, err := GetUserListForVideo(userList, req.UserId)
 
 	newVideo := pack.VideoDbToVideoService(res, douyinvideoUserList, req.UserId)
-	fmt.Println("get out db.QueryFavoriteVideoList")
 	return newVideo, nil
 
 }

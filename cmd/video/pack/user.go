@@ -7,11 +7,15 @@ import (
 
 func DyUserUserToDyVideoUser(user *douyinuser.User) *douyinvideo.User {
 	return &douyinvideo.User{
-		Id:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   &user.FollowCount,
-		FollowerCount: &user.FollowerCount,
-		IsFollow:      user.IsFollow,
+		Id:             user.UserId,
+		Name:           user.Username,
+		FollowCount:    &user.FollowCount,
+		FollowerCount:  &user.FollowerCount,
+		IsFollow:       user.IsFollow,
+		Avatar:         &user.Avatar,
+		TotalFavorited: &user.TotalFavorited,
+		WorkCount:      &user.WorkCount,
+		FavoriteCount:  &user.FavoriteCount,
 	}
 
 }

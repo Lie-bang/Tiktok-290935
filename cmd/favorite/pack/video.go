@@ -7,11 +7,15 @@ import (
 
 func DouyinVideoUserToDouyinFavoriteUser(user *douyinvideo.User) *douyinfavorite.User {
 	return &douyinfavorite.User{
-		Id:            (*user).Id,
-		Name:          (*user).Name,
-		FollowCount:   (*user).FollowerCount,
-		FollowerCount: (*user).FollowerCount,
-		IsFollow:      (*user).IsFollow,
+		Id:             (*user).Id,
+		Name:           (*user).Name,
+		FollowCount:    (*user).FollowerCount,
+		FollowerCount:  (*user).FollowerCount,
+		IsFollow:       (*user).IsFollow,
+		Avatar:         user.Avatar,
+		TotalFavorited: user.TotalFavorited,
+		WorkCount:      user.WorkCount,
+		FavoriteCount:  user.FavoriteCount,
 	}
 }
 

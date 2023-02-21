@@ -30,19 +30,16 @@ func (v *Video_db) TableName() string {
 func QueryVideo(ctx context.Context, LatestTime int64) (*[]Video_db, error) {
 	//以这种方式返回多条记录
 	var video *[]Video_db
-	fmt.Println("get in db.go QueryVideo")
-	fmt.Println("db time:", LatestTime)
+
 	conn := DB.WithContext(ctx).
 		Where("pub_time < ?", LatestTime).
 		Limit(30).
 		Order("pub_time desc").Find(&video)
 
 	if err := conn.Find(&video).Error; err != nil {
-		fmt.Println("数据库c查询错w无")
+		fmt.Println("数据库查询错误")
 		return nil, err
 	}
-
-	fmt.Println("get out db.go QueryVideo")
 
 	return video, nil
 }
@@ -79,7 +76,6 @@ func InsertVideo(ctx context.Context, video *douyinvideo.Video, userId int, pubT
 
 func QueryListVideo(ctx context.Context, userid int) (*[]Video_db, error) {
 	var video *[]Video_db
-	fmt.Println("user_id now:", userid)
 	conn := DB.WithContext(ctx).
 		Where("user_id = ?", userid).
 		Order("pub_time desc").Find(&video)
@@ -93,7 +89,6 @@ func QueryListVideo(ctx context.Context, userid int) (*[]Video_db, error) {
 
 func QueryFavoriteVideoList(ctx context.Context, videoIds []int64) (*[]Video_db, error) {
 	//var finalVideo *[]Video_db
-	fmt.Println("要遍历的video id:", videoIds)
 	var video *[]Video_db
 	var videolist []Video_db
 	for _, v := range videoIds {
@@ -103,12 +98,8 @@ func QueryFavoriteVideoList(ctx context.Context, videoIds []int64) (*[]Video_db,
 			return nil, conn.Error
 		}
 		videolist = append(videolist, (*video)[0])
-		fmt.Println("**************")
-		fmt.Println(video)
-		//此处没想好返回的n内容怎么存储比较合适
 	}
-	//fmt.Println("########")
-	//fmt.Println(*video)
+
 	return &videolist, nil
 }
 
@@ -144,13 +135,13 @@ func QueryWorkAndFavoriteCount(ctx context.Context, req *douyinvideo.Douyin_Work
 		return 0, 0, result.Error
 	}
 
-	var work_count int64
-	work_count = result.RowsAffected
-	var fav_count int64
-	fav_count = 0
+	var workCount int64
+	workCount = result.RowsAffected
+	var favCount int64
+	favCount = 0
 
 	for _, v := range video {
-		fav_count = fav_count + int64(v.FavouriteCount)
+		favCount = favCount + int64(v.FavouriteCount)
 	}
-	return work_count, fav_count, nil
+	return workCount, favCount, nil
 }

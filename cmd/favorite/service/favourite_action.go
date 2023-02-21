@@ -16,17 +16,17 @@ func NewFavouriteActionService(ctx context.Context) *FavouriteActionService {
 	return &FavouriteActionService{ctx: ctx}
 }
 
-func (f *FavouriteActionService) FavouriteAction(req *douyinfavorite.DouyinFavoriteActionRequest) error {
+func (f *FavouriteActionService) FavouriteAction(req *douyinfavorite.DouyinFavoriteActionRequest) (bool, error) {
 	//操作数据库
 	userid, err := strconv.ParseInt(req.Token, 10, 64)
 	if err != nil {
 		log.Print(err)
-		return err
+		return false, err
 	}
-	err = db.UpdateFavourite(f.ctx, req, userid)
+	success, err := db.UpdateFavourite(f.ctx, req, userid)
 	if err != nil {
 		log.Print(err)
-		return err
+		return false, err
 	}
-	return nil
+	return success, nil
 }

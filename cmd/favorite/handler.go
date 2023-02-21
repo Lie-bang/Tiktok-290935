@@ -14,14 +14,20 @@ type FavoriteServiceImpl struct{}
 // FavoriteAction implements the FavoriteServiceImpl interface.
 func (s *FavoriteServiceImpl) FavoriteAction(ctx context.Context, request *douyinfavorite.DouyinFavoriteActionRequest) (resp *douyinfavorite.DouyinFavoriteActionResponse, err error) {
 	// TODO: Your code here...
-	err = Service.NewFavouriteActionService(ctx).FavouriteAction(request)
+	suc, err := Service.NewFavouriteActionService(ctx).FavouriteAction(request)
 	if err != nil {
 		log.Print(err)
 		return nil, err
 	}
 	resp = new(douyinfavorite.DouyinFavoriteActionResponse)
 	resp.StatusCode = 0
-	StatusMsg := "Favorite action success"
+	var StatusMsg string
+	if suc {
+		StatusMsg = "Favorite action success"
+	} else {
+		StatusMsg = "Something wrong happend when do Favorite action, please check the log."
+	}
+
 	resp.StatusMsg = &StatusMsg
 
 	return resp, nil

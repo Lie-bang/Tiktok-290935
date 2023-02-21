@@ -4,7 +4,6 @@ import (
 	"context"
 	"douyin/cmd/favorite/dal/db"
 	"douyin/kitex_gen/douyinfavorite"
-	"fmt"
 	"log"
 )
 
@@ -17,13 +16,12 @@ func NewFavouriteCountUserService(ctx context.Context) *FavouriteCountUserServic
 }
 
 func (f *FavouriteCountUserService) FavouriteCountUser(req *douyinfavorite.DouyinFavoriteCountUserRequest) (int64, error) {
-	fmt.Println("get in db.QueryFavoriteCountByUse")
 	count, err := db.QueryFavoriteCountByUser(f.ctx, req)
 	if err != nil {
 		log.Print(err)
 		return count, err
 	}
-	fmt.Println("get out db.QueryFavoriteCountByUse")
+
 	return count, err
 
 }

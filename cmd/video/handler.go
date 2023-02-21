@@ -14,9 +14,7 @@ type VideoServiceImpl struct{}
 // FeedVideo implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) FeedVideo(ctx context.Context, request *douyinvideo.DouyinFeedRequest) (resp *douyinvideo.DouyinFeedResponse, err error) {
 	// TODO: Your code here...
-	fmt.Println("get in kitex handler")
 	v, respTime, err := Service.NewFeedVideoService(ctx).FeedVideo(request)
-	fmt.Println("get out kitex handler")
 	resp = new(douyinvideo.DouyinFeedResponse)
 	if err != nil {
 		fmt.Println(err)
@@ -47,9 +45,7 @@ func (s *VideoServiceImpl) FeedVideo(ctx context.Context, request *douyinvideo.D
 // PublishVideo implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) PublishVideo(ctx context.Context, request *douyinvideo.DouyinPublishActionRequest) (resp *douyinvideo.DouyinPublishActionResponse, err error) {
 	// TODO: Your code here...
-	fmt.Println("a stream get in")
 	err = Service.NewPublishVideoService(ctx).PublishVideo(request)
-	fmt.Println("a stream get out")
 	if err != nil {
 		log.Print(err)
 		return nil, nil
@@ -83,7 +79,6 @@ func (s *VideoServiceImpl) PublishListVideo(ctx context.Context, request *douyin
 // FavoriteVideoList implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) FavoriteVideoList(ctx context.Context, request *douyinvideo.DouyinFavoriteListRequest) (resp *douyinvideo.DouyinFavoriteListResponse, err error) {
 	// TODO: Your code here...
-	fmt.Println("get in video.handler FavoriteVideoList")
 	v, err := Service.NewFavoriteVideoListService(ctx).FavoriteVideoList(request)
 
 	if err != nil {
@@ -91,7 +86,6 @@ func (s *VideoServiceImpl) FavoriteVideoList(ctx context.Context, request *douyi
 		return nil, err
 	}
 	resp = new(douyinvideo.DouyinFavoriteListResponse)
-	fmt.Println("get out video.handler FavoriteVideoList")
 	resp.StatusCode = 0
 	statusMsg := "Get video list success"
 	resp.StatusMsg = &statusMsg

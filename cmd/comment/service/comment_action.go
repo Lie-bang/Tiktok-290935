@@ -33,18 +33,10 @@ func (c *CommentActionService) CommentAction(req *douyincomment.DouyinCommentAct
 		return nil, err
 	}
 
-	//uUser, err := rpc.GerUser(context.Background(), &douyinuser.GetUserRequest{
-	//	UserId:   uid,
-	//	ToUserId: uid,
-	//})
-	//if err != nil {
-	//	return nil, err
-	//}
-
 	cmt, err := pack.CommentDbToDouyinComment(resp)
 	if err != nil {
 		return nil, err
 	}
-	//cmt.User = pack.DouyinUserUserToDouyinCommentUser(uUser)
+
 	return cmt, nil
 }

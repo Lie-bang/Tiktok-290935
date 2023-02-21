@@ -36,7 +36,7 @@ func (s *GetUserService) GetUser(req *douyinuser.GetUserRequest) (*douyinuser.Us
 	fmt.Println("ready get into rpc.FavoriteCount")
 	fmt.Println("requ.UserId now: ", req.UserId)
 	favoriteCount, err := rpc.FavoriteCount(s.ctx, &douyinfavorite.DouyinFavoriteCountUserRequest{
-		UserId: req.UserId,
+		UserId: req.ToUserId,
 	})
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (s *GetUserService) GetUser(req *douyinuser.GetUserRequest) (*douyinuser.Us
 	fmt.Println("favoriteCount:", favoriteCount)
 
 	workCount, totalFavorite, err := rpc.WorkAndFavoriteCount(s.ctx, &douyinvideo.Douyin_Work_And_Favorite_CountRequest{
-		UserId: req.UserId,
+		UserId: req.ToUserId,
 	})
 	if err != nil {
 		return nil, err

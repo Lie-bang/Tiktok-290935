@@ -5,7 +5,6 @@ import (
 	"douyin/cmd/video/dal/db"
 	"douyin/kitex_gen/douyinfavorite"
 	"douyin/pkg/consts"
-	"fmt"
 	"gorm.io/gorm"
 	"log"
 	"time"
@@ -21,18 +20,29 @@ func (f *Favorite_db) TableName() string {
 	return consts.FavoriteTableName
 }
 
-func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavoriteActionRequest, userid int64) error {
+func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavoriteActionRequest, userid int64) (bool, error) {
 	var fav Favorite_db
 	var video db.Video_db
 
-	//需要更新两个表，更新videob表中视频点赞的数量，g更新favourite报表中user_id以及video_id的关系
+	videoExist := DB.WithContext(ctx).Where("video_id = ?", request.VideoId).Find(&fav)
+	if videoExist.Error != nil {
+		log.Print(videoExist.Error)
+		return false, videoExist.Error
+	}
+
+	if videoExist.RowsAffected == 0 {
+		log.Print("video_id doesn't exist!")
+		return false, nil
+	}
+
+	//需要更新两个表，更新videob表中视频点赞的数量，更新favourite报表中user_id以及video_id的关系
 	if request.ActionType == 1 { //点赞
 		fav.UserId = userid
 		fav.VideoId = request.VideoId
 		res := DB.WithContext(ctx).Where("user_id = ? AND video_id = ?", fav.UserId, fav.VideoId).Find(&fav)
 		if res.RowsAffected > 0 {
 			log.Print("already liked!!!!")
-			return nil
+			return false, nil
 		}
 		fav.UserId = userid
 		fav.VideoId = request.VideoId
@@ -41,7 +51,7 @@ func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavorite
 
 		if resultFavorite.Error != nil {
 			log.Print(resultFavorite.Error)
-			return resultFavorite.Error
+			return false, resultFavorite.Error
 		}
 
 		fav.UserId = userid
@@ -50,7 +60,7 @@ func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavorite
 			Update("favourite_count", gorm.Expr("favourite_count + ?", 1))
 		if result.Error != nil {
 			log.Print(result.Error)
-			return result.Error
+			return false, result.Error
 		}
 
 	} else if request.ActionType == 2 { //取消点赞
@@ -59,17 +69,17 @@ func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavorite
 		res := DB.WithContext(ctx).Where("user_id = ? ", fav.UserId).Find(&fav)
 		if res.RowsAffected == 0 {
 			log.Print("can't cancel like!!!!")
-			return nil
+			return false, nil
 		}
 		fav.UserId = userid
 		fav.VideoId = request.VideoId
-		fmt.Println("cancel liked user_id: ", fav.UserId)
-		fmt.Println("cancel liked video_id: ", fav.VideoId)
+		//fmt.Println("cancel liked user_id: ", fav.UserId)
+		//fmt.Println("cancel liked video_id: ", fav.VideoId)
 		resultFavorite := DB.WithContext(ctx).Where("user_id = ? AND video_id = ?", fav.UserId, fav.VideoId).Delete(&fav)
 
 		if resultFavorite.Error != nil {
 			log.Print(resultFavorite.Error)
-			return resultFavorite.Error
+			return false, resultFavorite.Error
 		}
 		fav.UserId = userid
 		fav.VideoId = request.VideoId
@@ -77,34 +87,28 @@ func UpdateFavourite(ctx context.Context, request *douyinfavorite.DouyinFavorite
 			Update("favourite_count", gorm.Expr("favourite_count - ?", 1))
 		if result.Error != nil {
 			log.Print(result.Error)
-			return result.Error
+			return false, result.Error
 		}
-		//fav.UserId = userid
-		//fav.VideoId = request.VideoId
 
 	} else {
 		log.Print("wrong action type")
-		return nil
+		return false, nil
 	}
-	return nil
+	return true, nil
 }
 
 func QueryFavoriteVideoByUserId(ctx context.Context, request *douyinfavorite.DouyinFavoriteListRequest) (*[]int64, error) {
 	var fav *[]Favorite_db
-	fmt.Println("in QueryFavoriteVideoByUserId user_id :", request.UserId)
 	result := DB.WithContext(ctx).Where("user_id = ?", request.UserId).Order("favorite_time desc").Find(&fav)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	fmt.Println("fav now:", *fav)
-	fmt.Println(len(*fav))
+
 	var videoIds []int64
-	for k, v := range *fav {
-		fmt.Println("key now:", k)
-		fmt.Println("videoID now:", v.VideoId)
+	for _, v := range *fav {
+
 		videoIds = append(videoIds, v.VideoId)
 	}
-	fmt.Println("get out for range")
 	return &videoIds, nil
 }
 
@@ -122,15 +126,13 @@ func QueryFavoriteJudge(ctx context.Context, request *douyinfavorite.DouyinFavor
 }
 
 func QueryFavoriteCountByUser(ctx context.Context, request *douyinfavorite.DouyinFavoriteCountUserRequest) (int64, error) {
-	fmt.Println("get in QueryFavoriteCountByUser")
+
 	var fav []Favorite_db
 	result := DB.WithContext(ctx).Where("user_id = ?", request.UserId).Find(&fav)
 	if result.Error != nil {
 		log.Print(result.Error)
 		return 0, result.Error
 	}
-
-	fmt.Println("result.RowsAffected:", result.RowsAffected)
-
+	
 	return result.RowsAffected, nil
 }

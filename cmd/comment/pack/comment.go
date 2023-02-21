@@ -28,10 +28,14 @@ func CommentDbToDouyinComment(cmt *db.CommentDb) (*douyincomment.Comment, error)
 
 func DouyinUserUserToDouyinCommentUser(user *douyinuser.User) *douyincomment.User {
 	return &douyincomment.User{
-		Id:            user.UserId,
-		Name:          user.Username,
-		FollowCount:   &user.FollowerCount,
-		FollowerCount: &user.FollowerCount,
-		IsFollow:      user.IsFollow,
+		Id:             user.UserId,
+		Name:           user.Username,
+		FollowCount:    &user.FollowerCount,
+		FollowerCount:  &user.FollowerCount,
+		IsFollow:       user.IsFollow,
+		Avatar:         &user.Avatar,
+		TotalFavorited: &user.TotalFavorited,
+		WorkCount:      &user.WorkCount,
+		FavoriteCount:  &user.FavoriteCount,
 	}
 }

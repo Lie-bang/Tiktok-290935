@@ -26,7 +26,6 @@ func NewPublishVideoService(ctx context.Context) *PublishVideoService {
 func (p *PublishVideoService) PublishVideo(req *douyinvideo.DouyinPublishActionRequest) error {
 	//首先将传过来的数据写入到minio
 	//将minio的结果写入到数据库
-	fmt.Println("get in Pubslihvideo !")
 	client, err := minio.New(
 		consts.Endpoint,
 		consts.AccessKeyID,

@@ -9,7 +9,7 @@ import (
 
 var DB *gorm.DB
 
-func InitVideo_db() {
+func InitvideoDb() {
 	var err error
 
 	DB, err = gorm.Open(mysql.Open(consts.MySQLDefaultDSN), &gorm.Config{})

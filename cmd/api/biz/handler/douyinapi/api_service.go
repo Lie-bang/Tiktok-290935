@@ -233,21 +233,11 @@ func SendMessage(ctx context.Context, c *app.RequestContext) {
 func FeedVideo(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req douyinapi.DouyinFeedRequest
-	fmt.Println("get in there~~~~~~1")
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts2.StatusBadRequest, err.Error())
 		return
 	}
-
-	fmt.Println("token: ", req.Token)
-
-	//if req.Token != nil {
-	//	mw.JwtMiddleware.LoginHandler(ctx, c)
-	//	v, _ := c.Get(consts.IdentityKey)
-	//	userid := v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
-	//	fmt.Println("userid now:", userid)
-	//}
 
 	var userId int64
 	if req.Token != nil {
@@ -260,16 +250,6 @@ func FeedVideo(ctx context.Context, c *app.RequestContext) {
 	} else {
 		userId = -1
 	}
-	//if req.Token != nil {
-	//	//mw.JwtMiddleware.IdentityHandler(ctx, c)
-	//	v, _ := c.Get(consts.IdentityKey)
-	//	//userId = strconv.FormatInt(v.(*douyinapi.User).ID, 10) //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
-	//	userId = v.(*douyinapi.User).ID
-	//	fmt.Println("userid now:", userId)
-	//
-	//} else {
-	//	userId = -1
-	//}
 
 	if req.LastestTime == nil {
 		t := time.Now().Unix()
@@ -289,27 +269,22 @@ func FeedVideo(ctx context.Context, c *app.RequestContext) {
 func PublishVideo(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req multipart.FileHeader
-	//var reqDouyin douyinapi.DouyinPublishActionRequest
 
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts2.StatusBadRequest, err.Error())
 		return
 	}
-	fmt.Println("鉴权开始*****")
+
 	v, _ := c.Get(consts.IdentityKey)
 	user_id := v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
-	fmt.Println("鉴权结束*****")
-	//1: required string token // 用户鉴权token
-	//2: required binary data // 视频数据
-	//3: required string title // 视频标题
 
 	data, err := c.FormFile("data")
 	if err != nil {
 		log.Print("read video data failed:", err)
 		return
 	}
-	//token := c.PostForm("token")
+
 	title := c.PostForm("title")
 
 	dataContent, err := data.Open()
@@ -319,11 +294,9 @@ func PublishVideo(ctx context.Context, c *app.RequestContext) {
 
 	resp, err := rpc.PublishVideo(context.Background(), &douyinvideo.DouyinPublishActionRequest{
 		Token: strconv.FormatInt(user_id, 10),
-		//Token: strconv.FormatInt(userId, 10),
 		Title: title,
 		Data:  byteContainer,
 	})
-	fmt.Println("ready to leave in rpc.PublishVideo")
 
 	if err != nil {
 		log.Println(err)
@@ -396,12 +369,12 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 
 	v, _ := c.Get(consts.IdentityKey)
 	user_id := v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
-	fmt.Println("get in rpc.FavoriteList")
+
 	resp, err := rpc.FavoriteList(context.Background(), &douyinfavorite.DouyinFavoriteListRequest{
 		UserId: user_id,
 		Token:  req.Token,
 	})
-	fmt.Println("get out rpc.FavoriteList")
+
 	if err != nil {
 		log.Print(err)
 	}
@@ -421,7 +394,7 @@ func CommentAction(ctx context.Context, c *app.RequestContext) {
 	}
 
 	v, _ := c.Get(consts.IdentityKey)
-	user_id := v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
+	userId := v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
 
 	resp, err := rpc.CommentAction(context.Background(), &douyincomment.DouyinCommentActionRequest{
 		Token:       req.Token,
@@ -429,7 +402,7 @@ func CommentAction(ctx context.Context, c *app.RequestContext) {
 		ActionType:  req.ActionType,
 		CommentText: req.CommentText,
 		CommentId:   req.CommentID,
-	}, user_id)
+	}, userId)
 
 	if err != nil {
 		log.Print(err)
@@ -448,9 +421,6 @@ func CommentList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts2.StatusBadRequest, err.Error())
 		return
 	}
-
-	//v, _ := c.Get(consts.IdentityKey)
-	//_ = v.(*douyinapi.User).ID //这里 v.(douyinapi.User).ID 表示的是当前登录用户的userId
 
 	var userId int64
 	if &req.Token != nil {
