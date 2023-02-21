@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="bcd63b94-7926-45be-9ca2-d3874cf29d54" name="mylinux">
+        <fileTransfer rootFolder="/home/dulb" accessType="SFTP" host="192.168.12.217" port="22" sshConfigId="6abddfc8-7b4e-4a55-952b-88fb7dc34d7d" sshConfig="dulb@192.168.12.217:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
