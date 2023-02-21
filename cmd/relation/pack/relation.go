@@ -4,6 +4,7 @@ import (
 	"douyin/cmd/relation/dal/rdb"
 	"douyin/kitex_gen/douyinmessage"
 	"douyin/kitex_gen/douyinrelation"
+	"douyin/pkg/consts"
 )
 
 func ToRUser(userRModels []*rdb.User, usersMap map[int64]string) []*douyinrelation.User {
@@ -15,7 +16,7 @@ func ToRUser(userRModels []*rdb.User, usersMap map[int64]string) []*douyinrelati
 			FollowCount:   u.FollowCount,
 			FollowerCount: u.FollowerCount,
 			IsFollow:      u.IsFollow,
-			Avatar:        "empty",
+			Avatar:        consts.AvatarAddr,
 		})
 	}
 	return rUsers
@@ -48,7 +49,7 @@ func ToFriendUser(userRModels []*rdb.User, usersMap map[int64]string, contents m
 				FollowCount:   u.FollowCount,
 				FollowerCount: u.FollowerCount,
 				IsFollow:      u.IsFollow,
-				Avatar:        "test",
+				Avatar:        consts.AvatarAddr,
 			},
 			Message: contents[u.ID],
 			MsgType: msgTypes[u.ID],

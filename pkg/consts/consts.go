@@ -20,8 +20,8 @@ const (
 
 	TempVideoFilePath = "./tempVideoFile/"
 	HttpTemplate      = "http://"
-	//LocalIp           = "192.168.0.109"
-	LocalIp = "10.11.116.158"
+	LocalIp           = "192.168.12.217"
+	//LocalIp = "10.11.116.158"
 	//LocalIP   = "192.168.30.253"
 	MinioPort = ":9000"
 	/**/
@@ -46,4 +46,9 @@ const (
 	RedisChatRecord     = "ChatRecord"
 	UserFollowList      = "{userfollowlist}:"
 	UserFollowerList    = "{userfollowerlist}:"
+
+	AvatarAddr          = "http://192.168.12.217:8080/avatar.jpg"
+	MyAvatarAddr        = "http://192.168.12.217:8080/myavatar.jpg"
+	BackgroundImageAddr = "http://192.168.12.217:8080/wall.jpg"
+	Signature           = "Hello World!"
 )

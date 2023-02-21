@@ -5,7 +5,7 @@
       <paths name="myhot">
         <serverdata>
           <mappings>
-            <mapping deploy="/mygoworkspace/src/ddd" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/TikTok" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

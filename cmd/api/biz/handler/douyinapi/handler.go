@@ -5,6 +5,7 @@ import (
 	"douyin/kitex_gen/douyinmessage"
 	"douyin/kitex_gen/douyinrelation"
 	"douyin/kitex_gen/douyinuser"
+	myconsts "douyin/pkg/consts"
 	"douyin/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -50,9 +51,9 @@ func UserUserToApiUser(user *douyinuser.User) *douyinapi.User {
 		FollowCount:     user.FollowCount,
 		FollowerCount:   user.FollowerCount,
 		IsFollow:        user.IsFollow,
-		Avatar:          "http://192.168.0.109:8080/myavatar.jpg",
-		BackgroundImage: "http://192.168.0.109:8080/wall.jpg",
-		Signature:       "OH! MY GOD!",
+		Avatar:          myconsts.MyAvatarAddr,
+		BackgroundImage: myconsts.BackgroundImageAddr,
+		Signature:       myconsts.Signature,
 		TotalFavorited:  user.TotalFavorited,
 		WorkCount:       user.WorkCount,
 		FavoriteCount:   user.FavoriteCount,
@@ -69,9 +70,9 @@ func RelationUserToApiUser(user *douyinrelation.User) *douyinapi.User {
 		FollowCount:     user.FollowCount,
 		FollowerCount:   user.FollowerCount,
 		IsFollow:        user.IsFollow,
-		Avatar:          "http://192.168.0.109:8080/myavatar.jpg",
-		BackgroundImage: "http://192.168.0.109:8080/wall.jpg",
-		Signature:       "OH! MY GOD!",
+		Avatar:          myconsts.MyAvatarAddr,
+		BackgroundImage: myconsts.BackgroundImageAddr,
+		Signature:       myconsts.Signature,
 		TotalFavorited:  user.TotalFavorited,
 		WorkCount:       user.WorkCount,
 		FavoriteCount:   user.FavoriteCount,
@@ -100,7 +101,7 @@ func RelationFriendUserToApiFriendUser(user *douyinrelation.FriendUser) *douyina
 		IsFollow:      user.User.IsFollow,
 		Message:       user.Message,
 		MsgType:       user.MsgType,
-		Avatar:        "http://192.168.0.109:8080/avatar.jpg",
+		Avatar:        myconsts.MyAvatarAddr,
 	}
 }
 
@@ -144,7 +145,7 @@ func MsgMessageToTestMessage(msg *douyinmessage.Message) *TestMessage {
 		ToUserID:   msg.ToUserId,
 		FromUserID: msg.FromUserId,
 		Content:    msg.Content,
-		CreateTime: 1675843303941,
+		CreateTime: msg.CreateTime,
 	}
 }
 

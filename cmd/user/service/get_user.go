@@ -9,7 +9,6 @@ import (
 	"douyin/kitex_gen/douyinrelation"
 	"douyin/kitex_gen/douyinuser"
 	"douyin/kitex_gen/douyinvideo"
-	"fmt"
 )
 
 type GetUserService struct {
@@ -33,15 +32,13 @@ func (s *GetUserService) GetUser(req *douyinuser.GetUserRequest) (*douyinuser.Us
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("ready get into rpc.FavoriteCount")
-	fmt.Println("requ.UserId now: ", req.UserId)
+
 	favoriteCount, err := rpc.FavoriteCount(s.ctx, &douyinfavorite.DouyinFavoriteCountUserRequest{
 		UserId: req.ToUserId,
 	})
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("favoriteCount:", favoriteCount)
 
 	workCount, totalFavorite, err := rpc.WorkAndFavoriteCount(s.ctx, &douyinvideo.Douyin_Work_And_Favorite_CountRequest{
 		UserId: req.ToUserId,
@@ -50,9 +47,5 @@ func (s *GetUserService) GetUser(req *douyinuser.GetUserRequest) (*douyinuser.Us
 		return nil, err
 	}
 
-	//var favoriteCount int64 = 1
-	//var workCount int64 = 1
-	//var totalFavorite int64 = 1
-
-	return pack.UserG(modelUser, relationInfo[0], favoriteCount, workCount, totalFavorite), nil
+	return pack.User(modelUser, relationInfo[0], favoriteCount, workCount, totalFavorite), nil
 }
