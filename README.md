@@ -34,153 +34,124 @@ Minio是一个开源的对象存储服务，可以用于存储大量非结构化
 
 ## 项目结构
 
-```
-├─ .DS_Store
-├─ .git
-├─ .idea
-├─ cmd
-│    ├─ api    //apiService 核心代码
-│    │    ├─ .gitignore
-│    │    ├─ .hz
-│    │    ├─ api    //解析业务逻辑
-│    │    ├─ biz
-│    │    ├─ fast.sh
-│    │    ├─ main.go //apiService启动
-│    │    ├─ router.go
-│    │    └─ router_gen.go
-│    ├─ comment    //commentService 核心代码
-│    │    ├─ build.sh
-│    │    ├─ comment
-│    │    ├─ dal    //commentService相关数据操作
-│    │    ├─ handler.go
-│    │    ├─ kitex.yaml
-│    │    ├─ main.go //rpcService启动
-│    │    ├─ output
-│    │    ├─ pack    //对象打包
-│    │    ├─ rpc    //申请rpc调用其他服务
-│    │    ├─ script
-│    │    └─ service //核心业务逻辑代码
-│    ├─ favorite    //favoriteService 核心代码
-│    │    ├─ build.sh
-│    │    ├─ dal    //favoriteService相关数据操作
-│    │    ├─ favorite
-│    │    ├─ handler.go
-│    │    ├─ kitex.yaml
-│    │    ├─ main.go //rpcService启动
-│    │    ├─ output
-│    │    ├─ pack    //对象打包
-│    │    ├─ rpc    //申请rpc调用其他服务
-│    │    ├─ script
-│    │    └─ service //核心业务逻辑代码
-│    ├─ message    //messageService 核心代码
-│    │    ├─ build.sh
-│    │    ├─ dal    //Service相关数据操作
-│    │    ├─ handler.go
-│    │    ├─ kitex.yaml
-│    │    ├─ main.go //rpcService启动
-│    │    ├─ message
-│    │    ├─ output
-│    │    ├─ pack    //对象打包
-│    │    ├─ script
-│    │    └─ service //核心业务逻辑代码
-│    ├─ relation    //relationService 核心代码
-│    │    ├─ build.sh
-│    │    ├─ dal    //Service相关数据操作
-│    │    ├─ handler.go
-│    │    ├─ kitex.yaml
-│    │    ├─ main.go //rpcService启动
-│    │    ├─ output
-│    │    ├─ pack    //对象打包
-│    │    ├─ relation
-│    │    ├─ rpc    //申请rpc调用其他服务
-│    │    ├─ script
-│    │    └─ service //核心业务逻辑代码
-│    ├─ user    //UserService 核心代码
-│    │    ├─ build.sh
-│    │    ├─ dal    //Service相关数据操作
-│    │    ├─ handler.go
-│    │    ├─ kitex.yaml
-│    │    ├─ main.go //rpcService启动
-│    │    ├─ output
-│    │    ├─ pack    //对象打包
-│    │    ├─ rpc    //申请rpc调用其他服务
-│    │    ├─ script
-│    │    ├─ service //核心业务逻辑代码
-│    │    └─ user
-│    └─ video    //VideoService 核心代码
-│           ├─ Service //核心业务逻辑代码
-│           ├─ build.sh
-│           ├─ dal    //Service相关数据操作
-│           ├─ handler.go
-│           ├─ kitex.yaml
-│           ├─ main.go //rpcService启动
-│           ├─ output
-│           ├─ pack
-│           ├─ rpc    //申请rpc调用其他服务
-│           ├─ script
-│           ├─ tempVideoFile
-│           └─ video
-├─ docker-compose.yaml  // minio;mysql;redis;etcd docker配置文件
-├─ go.mod
-├─ go.sum
-├─ idl //idl文件
-│    ├─ api.thrift
-│    ├─ comment.thrift
-│    ├─ favorite.thrift
-│    ├─ message.thrift
-│    ├─ relation.thrift
-│    ├─ user.thrift
-│    └─ video.thrift
-├─ kitex_gen //kitex生成胶水代码
-│    ├─ douyincomment
-│    │    ├─ comment.go
-│    │    ├─ commentservice
-│    │    ├─ k-comment.go
-│    │    └─ k-consts.go
-│    ├─ douyinfavorite
-│    │    ├─ favorite.go
-│    │    ├─ favoriteservice
-│    │    ├─ k-consts.go
-│    │    └─ k-favorite.go
-│    ├─ douyinmessage
-│    │    ├─ k-consts.go
-│    │    ├─ k-message.go
-│    │    ├─ message.go
-│    │    ├─ message_validator.go
-│    │    └─ messageservice
-│    ├─ douyinrelation
-│    │    ├─ k-consts.go
-│    │    ├─ k-relation.go
-│    │    ├─ relation.go
-│    │    ├─ relation_validator.go
-│    │    └─ relationservice
-│    ├─ douyinuser
-│    │    ├─ k-consts.go
-│    │    ├─ k-user.go
-│    │    ├─ user.go
-│    │    ├─ user_validator.go
-│    │    └─ userservice
-│    └─ douyinvideo
-│           ├─ k-consts.go
-│           ├─ k-video.go
-│           ├─ video.go
-│           └─ videoservice
-└─ pkg
-       ├─ configs //配置文件
-       │    ├─ nosql
-       │    ├─ sql
-       │    └─ otel
-       ├─ consts //常量定义文件（serviceName/ServiceAddr/localIP/...）
-       │    └─ consts.go
-       ├─ errno    //错误码定义
-       │    └─ errno.go
-       ├─ minio    //minio配置文件
-       │    ├─ init.go
-       │    └─ minio_op
-       └─ mw
-       │    └─ client.go
-       │    └─ common.go
-       │    └─ server.go
-       │
-       └─ static //静态资源
-```
+<details>
+<summary>展开查看</summary>
+<pre>
+<code>
+       ├─ .DS_Store
+       ├─ .git
+       ├─ .idea
+       ├─ cmd
+       │    ├─ api    //apiService 核心代码
+       │    │    ├─ .gitignore
+       │    │    ├─ .hz
+       │    │    ├─ api    //解析业务逻辑
+       │    │    ├─ biz
+       │    │    ├─ fast.sh
+       │    │    ├─ main.go //apiService启动
+       │    │    ├─ router.go
+       │    │    └─ router_gen.go
+       │    ├─ comment    //commentService 核心代码
+       │    │    ├─ build.sh
+       │    │    ├─ comment
+       │    │    ├─ dal    //commentService相关数据操作
+       │    │    ├─ handler.go
+       │    │    ├─ kitex.yaml
+       │    │    ├─ main.go //rpcService启动
+       │    │    ├─ output
+       │    │    ├─ pack    //对象打包
+       │    │    ├─ rpc    //申请rpc调用其他服务
+       │    │    ├─ script
+       │    │    └─ service //核心业务逻辑代码
+       │    ├─ favorite    //favoriteService 核心代码
+       │    │    ├─ build.sh
+       │    │    ├─ dal    //favoriteService相关数据操作
+       │    │    ├─ favorite
+       │    │    ├─ handler.go
+       │    │    ├─ kitex.yaml
+       │    │    ├─ main.go //rpcService启动
+       │    │    ├─ output
+       │    │    ├─ pack    //对象打包
+       │    │    ├─ rpc    //申请rpc调用其他服务
+       │    │    ├─ script
+       │    │    └─ service //核心业务逻辑代码
+       │    ├─ message    //messageService 核心代码
+       │    │    ├─ build.sh
+       │    │    ├─ dal    //Service相关数据操作
+       │    │    ├─ handler.go
+       │    │    ├─ kitex.yaml
+       │    │    ├─ main.go //rpcService启动
+       │    │    ├─ message
+       │    │    ├─ output
+       │    │    ├─ pack    //对象打包
+       │    │    ├─ script
+       │    │    └─ service //核心业务逻辑代码
+       │    ├─ relation    //relationService 核心代码
+       │    │    ├─ build.sh
+       │    │    ├─ dal    //Service相关数据操作
+       │    │    ├─ handler.go
+       │    │    ├─ kitex.yaml
+       │    │    ├─ main.go //rpcService启动
+       │    │    ├─ output
+       │    │    ├─ pack    //对象打包
+       │    │    ├─ relation
+       │    │    ├─ rpc    //申请rpc调用其他服务
+       │    │    ├─ script
+       │    │    └─ service //核心业务逻辑代码
+       │    ├─ user    //UserService 核心代码
+       │    │    ├─ build.sh
+       │    │    ├─ dal    //Service相关数据操作
+       │    │    ├─ handler.go
+       │    │    ├─ kitex.yaml
+       │    │    ├─ main.go //rpcService启动
+       │    │    ├─ output
+       │    │    ├─ pack    //对象打包
+       │    │    ├─ rpc    //申请rpc调用其他服务
+       │    │    ├─ script
+       │    │    ├─ service //核心业务逻辑代码
+       │    │    └─ user
+       │    └─ video    //VideoService 核心代码
+       │           ├─ Service //核心业务逻辑代码
+       │           ├─ build.sh
+       │           ├─ dal    //Service相关数据操作
+       │           ├─ handler.go
+       │           ├─ kitex.yaml
+       │           ├─ main.go //rpcService启动
+       │           ├─ output
+       │           ├─ pack
+       │           ├─ rpc    //申请rpc调用其他服务
+       │           ├─ script
+       │           ├─ tempVideoFile
+       │           └─ video
+       ├─ docker-compose.yaml  // minio;mysql;redis;etcd docker配置文件
+       ├─ go.mod
+       ├─ go.sum
+       ├─ idl //idl文件
+       │    ├─ api.thrift
+       │    ├─ comment.thrift
+       │    ├─ favorite.thrift
+       │    ├─ message.thrift
+       │    ├─ relation.thrift
+       │    ├─ user.thrift
+       │    └─ video.thrift
+       ├─ kitex_gen //kitex生成胶水代码
+       └─ pkg
+              ├─ configs //配置文件
+              │    ├─ nosql
+              │    ├─ sql
+              │    └─ otel
+              ├─ consts //常量定义文件（serviceName/ServiceAddr/localIP/...）
+              │    └─ consts.go
+              ├─ errno    //错误码定义
+              │    └─ errno.go
+              ├─ minio    //minio配置文件
+              │    ├─ init.go
+              │    └─ minio_op
+              └─ mw
+              │    └─ client.go
+              │    └─ common.go
+              │    └─ server.go
+              └─ static //静态资源
+</code>
+</pre>
+</details>
