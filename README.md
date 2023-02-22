@@ -33,7 +33,7 @@ Minio是一个开源的对象存储服务，可以用于存储大量非结构化
 
 ## 项目架构
 
-[点击放大](./architecture.svg)
+[点击放大](./architecture.jpg)
 
 <img src="./architecture.jpg">
 
