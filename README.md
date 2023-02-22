@@ -165,4 +165,14 @@ Minio是一个开源的对象存储服务，可以用于存储大量非结构化
 
 ## 项目部署⚡
 
-docker-compose
+在主目录下运行
+
+```
+docker-compose up
+```
+
+由于本项目暂未开发统一开启各服务的命令，需要进入cmd目录下每一个微服务目录下手动运行
+
+```
+sh output/bootstrap.sh
+```
