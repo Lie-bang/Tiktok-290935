@@ -11,7 +11,7 @@ const (
 
 	VideoServiceName = "douyinvideo"
 	VideoTableName   = "Video"
-	Endpoint         = "127.0.0.1:9000"
+	Endpoint         = "127.0.0.otel-collector-config.yaml:9000"
 	AccessKeyID      = "minioadmin"
 	SecretAccessKey  = "minioadmin"
 	UseSSL           = false
@@ -40,7 +40,7 @@ const (
 	RelationServiceAddr = ":9001"
 	MessageServiceAddr  = ":9002"
 	ExportEndpoint      = ":4317"
-	ETCDAddress         = "127.0.0.1:2379"
+	ETCDAddress         = "127.0.0.otel-collector-config.yaml:2379"
 	RedisPassword       = "dlb123456"
 	RedisAddr           = "localhost:6379"
 	RedisChatRecord     = "ChatRecord"

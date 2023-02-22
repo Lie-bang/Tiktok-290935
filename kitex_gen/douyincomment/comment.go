@@ -10,7 +10,7 @@ import (
 )
 
 type DouyinCommentActionRequest struct {
-	Token       string  `thrift:"token,1,required" frugal:"1,required,string" json:"token"`
+	Token       string  `thrift:"token,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,string" json:"token"`
 	VideoId     int64   `thrift:"video_id,2,required" frugal:"2,required,i64" json:"video_id"`
 	ActionType  int32   `thrift:"action_type,3,required" frugal:"3,required,i32" json:"action_type"`
 	CommentText *string `thrift:"comment_text,4,optional" frugal:"4,optional,string" json:"comment_text,omitempty"`
@@ -309,9 +309,9 @@ func (p *DouyinCommentActionRequest) writeField1(oprot thrift.TProtocol) (err er
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinCommentActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -464,7 +464,7 @@ func (p *DouyinCommentActionRequest) Field5DeepEqual(src *int64) bool {
 }
 
 type DouyinCommentActionResponse struct {
-	StatusCode int32    `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode int32    `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	StatusMsg  *string  `thrift:"status_msg,2,optional" frugal:"2,optional,string" json:"status_msg,omitempty"`
 	Comment    *Comment `thrift:"comment,3,optional" frugal:"3,optional,Comment" json:"comment,omitempty"`
 }
@@ -684,9 +684,9 @@ func (p *DouyinCommentActionResponse) writeField1(oprot thrift.TProtocol) (err e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinCommentActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -780,7 +780,7 @@ func (p *DouyinCommentActionResponse) Field3DeepEqual(src *Comment) bool {
 }
 
 type DouyinCommentListRequest struct {
-	Token   string `thrift:"token,1,required" frugal:"1,required,string" json:"token"`
+	Token   string `thrift:"token,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,string" json:"token"`
 	VideoId int64  `thrift:"video_id,2,required" frugal:"2,required,i64" json:"video_id"`
 }
 
@@ -958,9 +958,9 @@ func (p *DouyinCommentListRequest) writeField1(oprot thrift.TProtocol) (err erro
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinCommentListRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1018,7 +1018,7 @@ func (p *DouyinCommentListRequest) Field2DeepEqual(src int64) bool {
 }
 
 type DouyinCommentListResponse struct {
-	StatusCode  int32      `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode  int32      `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	StatusMsg   *string    `thrift:"status_msg,2,optional" frugal:"2,optional,string" json:"status_msg,omitempty"`
 	CommentList []*Comment `thrift:"comment_list,3" frugal:"3,default,list<Comment>" json:"comment_list"`
 }
@@ -1241,9 +1241,9 @@ func (p *DouyinCommentListResponse) writeField1(oprot thrift.TProtocol) (err err
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinCommentListResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1349,7 +1349,7 @@ func (p *DouyinCommentListResponse) Field3DeepEqual(src []*Comment) bool {
 }
 
 type Comment struct {
-	Id         int64  `thrift:"id,1,required" frugal:"1,required,i64" json:"id"`
+	Id         int64  `thrift:"id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"id"`
 	User       *User  `thrift:"user,2,required" frugal:"2,required,User" json:"user"`
 	Content    string `thrift:"content,3,required" frugal:"3,required,string" json:"content"`
 	CreateDate string `thrift:"create_date,4,required" frugal:"4,required,string" json:"create_date"`
@@ -1613,9 +1613,9 @@ func (p *Comment) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *Comment) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1727,7 +1727,7 @@ func (p *Comment) Field4DeepEqual(src string) bool {
 }
 
 type User struct {
-	Id              int64   `thrift:"id,1,required" frugal:"1,required,i64" json:"id"`
+	Id              int64   `thrift:"id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"id"`
 	Name            string  `thrift:"name,2,required" frugal:"2,required,string" json:"name"`
 	FollowCount     *int64  `thrift:"follow_count,3,optional" frugal:"3,optional,i64" json:"follow_count,omitempty"`
 	FollowerCount   *int64  `thrift:"follower_count,4,optional" frugal:"4,optional,i64" json:"follower_count,omitempty"`
@@ -2272,9 +2272,9 @@ func (p *User) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *User) writeField2(oprot thrift.TProtocol) (err error) {
@@ -2821,7 +2821,7 @@ func (p *commentServiceProcessorCommentList) Process(ctx context.Context, seqId 
 }
 
 type CommentServiceCommentActionArgs struct {
-	Request *DouyinCommentActionRequest `thrift:"request,1" frugal:"1,default,DouyinCommentActionRequest" json:"request"`
+	Request *DouyinCommentActionRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinCommentActionRequest" json:"request"`
 	Uid     int64                       `thrift:"uid,2" frugal:"2,default,i64" json:"uid"`
 }
 
@@ -2992,9 +2992,9 @@ func (p *CommentServiceCommentActionArgs) writeField1(oprot thrift.TProtocol) (e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *CommentServiceCommentActionArgs) writeField2(oprot thrift.TProtocol) (err error) {
@@ -3226,7 +3226,7 @@ func (p *CommentServiceCommentActionResult) Field0DeepEqual(src *DouyinCommentAc
 }
 
 type CommentServiceCommentListArgs struct {
-	Request *DouyinCommentListRequest `thrift:"request,1" frugal:"1,default,DouyinCommentListRequest" json:"request"`
+	Request *DouyinCommentListRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinCommentListRequest" json:"request"`
 }
 
 func NewCommentServiceCommentListArgs() *CommentServiceCommentListArgs {
@@ -3365,9 +3365,9 @@ func (p *CommentServiceCommentListArgs) writeField1(oprot thrift.TProtocol) (err
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *CommentServiceCommentListArgs) String() string {

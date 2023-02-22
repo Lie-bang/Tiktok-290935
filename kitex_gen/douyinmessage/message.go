@@ -10,7 +10,7 @@ import (
 )
 
 type BaseResp struct {
-	StatusCode    int64  `thrift:"status_code,1" frugal:"1,default,i64" json:"status_code"`
+	StatusCode    int64  `thrift:"status_code,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,i64" json:"status_code"`
 	StatusMessage string `thrift:"status_message,2" frugal:"2,default,string" json:"status_message"`
 	ServiceTime   int64  `thrift:"service_time,3" frugal:"3,default,i64" json:"service_time"`
 }
@@ -205,9 +205,9 @@ func (p *BaseResp) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *BaseResp) writeField2(oprot thrift.TProtocol) (err error) {
@@ -292,7 +292,7 @@ func (p *BaseResp) Field3DeepEqual(src int64) bool {
 }
 
 type Message struct {
-	MsgId      int64  `thrift:"msg_id,1" frugal:"1,default,i64" json:"msg_id"`
+	MsgId      int64  `thrift:"msg_id,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,i64" json:"msg_id"`
 	ToUserId   int64  `thrift:"to_user_id,2" frugal:"2,default,i64" json:"to_user_id"`
 	FromUserId int64  `thrift:"from_user_id,3" frugal:"3,default,i64" json:"from_user_id"`
 	Content    string `thrift:"content,4" frugal:"4,default,string" json:"content"`
@@ -551,9 +551,9 @@ func (p *Message) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *Message) writeField2(oprot thrift.TProtocol) (err error) {
@@ -692,7 +692,7 @@ func (p *Message) Field5DeepEqual(src int64) bool {
 }
 
 type ChatRecordRequest struct {
-	ToUserId int64 `thrift:"to_user_id,1" frugal:"1,default,i64" json:"to_user_id"`
+	ToUserId int64 `thrift:"to_user_id,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,i64" json:"to_user_id"`
 	UserId   int64 `thrift:"user_id,2" frugal:"2,default,i64" json:"user_id"`
 }
 
@@ -855,9 +855,9 @@ func (p *ChatRecordRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *ChatRecordRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -915,7 +915,7 @@ func (p *ChatRecordRequest) Field2DeepEqual(src int64) bool {
 }
 
 type ChatRecordResponse struct {
-	BaseResp *BaseResp  `thrift:"base_resp,1" frugal:"1,default,BaseResp" json:"base_resp"`
+	BaseResp *BaseResp  `thrift:"base_resp,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,BaseResp" json:"base_resp"`
 	MsgList  []*Message `thrift:"msg_list,2" frugal:"2,default,list<Message>" json:"msg_list"`
 }
 
@@ -1097,9 +1097,9 @@ func (p *ChatRecordResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *ChatRecordResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1171,7 +1171,7 @@ func (p *ChatRecordResponse) Field2DeepEqual(src []*Message) bool {
 }
 
 type SendMessageRequest struct {
-	ToUserId   int64  `thrift:"to_user_id,1" frugal:"1,default,i64" json:"to_user_id"`
+	ToUserId   int64  `thrift:"to_user_id,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,i64" json:"to_user_id"`
 	UserId     int64  `thrift:"user_id,2" frugal:"2,default,i64" json:"user_id"`
 	ActionType int64  `thrift:"action_type,3" frugal:"3,default,i64" json:"action_type"`
 	Content    string `thrift:"content,4" frugal:"4,default,string" json:"content"`
@@ -1398,9 +1398,9 @@ func (p *SendMessageRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *SendMessageRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1512,7 +1512,7 @@ func (p *SendMessageRequest) Field4DeepEqual(src string) bool {
 }
 
 type SendMessageResponse struct {
-	BaseResp *BaseResp `thrift:"base_resp,1" frugal:"1,default,BaseResp" json:"base_resp"`
+	BaseResp *BaseResp `thrift:"base_resp,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,BaseResp" json:"base_resp"`
 }
 
 func NewSendMessageResponse() *SendMessageResponse {
@@ -1651,9 +1651,9 @@ func (p *SendMessageResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *SendMessageResponse) String() string {
@@ -1684,7 +1684,7 @@ func (p *SendMessageResponse) Field1DeepEqual(src *BaseResp) bool {
 }
 
 type GetFirstMessagesRequest struct {
-	ToUserIds []int64 `thrift:"to_user_ids,1" frugal:"1,default,list<i64>" json:"to_user_ids"`
+	ToUserIds []int64 `thrift:"to_user_ids,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,list<i64>" json:"to_user_ids"`
 	UserId    int64   `thrift:"user_id,2" frugal:"2,default,i64" json:"user_id"`
 }
 
@@ -1868,9 +1868,9 @@ func (p *GetFirstMessagesRequest) writeField1(oprot thrift.TProtocol) (err error
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *GetFirstMessagesRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1934,7 +1934,7 @@ func (p *GetFirstMessagesRequest) Field2DeepEqual(src int64) bool {
 }
 
 type GetFirstMessagesResponse struct {
-	BaseResp *BaseResp  `thrift:"base_resp,1" frugal:"1,default,BaseResp" json:"base_resp"`
+	BaseResp *BaseResp  `thrift:"base_resp,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,BaseResp" json:"base_resp"`
 	Messages []*Message `thrift:"messages,2" frugal:"2,default,list<Message>" json:"messages"`
 }
 
@@ -2116,9 +2116,9 @@ func (p *GetFirstMessagesResponse) writeField1(oprot thrift.TProtocol) (err erro
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *GetFirstMessagesResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -2439,7 +2439,7 @@ func (p *messageServiceProcessorGetFirstMessages) Process(ctx context.Context, s
 }
 
 type MessageServiceChatRecordArgs struct {
-	Req *ChatRecordRequest `thrift:"req,1" frugal:"1,default,ChatRecordRequest" json:"req"`
+	Req *ChatRecordRequest `thrift:"req,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,ChatRecordRequest" json:"req"`
 }
 
 func NewMessageServiceChatRecordArgs() *MessageServiceChatRecordArgs {
@@ -2578,9 +2578,9 @@ func (p *MessageServiceChatRecordArgs) writeField1(oprot thrift.TProtocol) (err 
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *MessageServiceChatRecordArgs) String() string {
@@ -2785,7 +2785,7 @@ func (p *MessageServiceChatRecordResult) Field0DeepEqual(src *ChatRecordResponse
 }
 
 type MessageServiceSendMessageArgs struct {
-	Req *SendMessageRequest `thrift:"req,1" frugal:"1,default,SendMessageRequest" json:"req"`
+	Req *SendMessageRequest `thrift:"req,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,SendMessageRequest" json:"req"`
 }
 
 func NewMessageServiceSendMessageArgs() *MessageServiceSendMessageArgs {
@@ -2924,9 +2924,9 @@ func (p *MessageServiceSendMessageArgs) writeField1(oprot thrift.TProtocol) (err
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *MessageServiceSendMessageArgs) String() string {
@@ -3131,7 +3131,7 @@ func (p *MessageServiceSendMessageResult) Field0DeepEqual(src *SendMessageRespon
 }
 
 type MessageServiceGetFirstMessagesArgs struct {
-	Req *GetFirstMessagesRequest `thrift:"req,1" frugal:"1,default,GetFirstMessagesRequest" json:"req"`
+	Req *GetFirstMessagesRequest `thrift:"req,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,GetFirstMessagesRequest" json:"req"`
 }
 
 func NewMessageServiceGetFirstMessagesArgs() *MessageServiceGetFirstMessagesArgs {
@@ -3270,9 +3270,9 @@ func (p *MessageServiceGetFirstMessagesArgs) writeField1(oprot thrift.TProtocol)
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *MessageServiceGetFirstMessagesArgs) String() string {

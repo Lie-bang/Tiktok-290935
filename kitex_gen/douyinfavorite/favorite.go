@@ -10,7 +10,7 @@ import (
 )
 
 type DouyinFavoriteActionRequest struct {
-	Token      string `thrift:"token,1,required" frugal:"1,required,string" json:"token"`
+	Token      string `thrift:"token,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,string" json:"token"`
 	VideoId    int64  `thrift:"video_id,2,required" frugal:"2,required,i64" json:"video_id"`
 	ActionType int32  `thrift:"action_type,3,required" frugal:"3,required,i32" json:"action_type"`
 }
@@ -227,9 +227,9 @@ func (p *DouyinFavoriteActionRequest) writeField1(oprot thrift.TProtocol) (err e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -314,7 +314,7 @@ func (p *DouyinFavoriteActionRequest) Field3DeepEqual(src int32) bool {
 }
 
 type DouyinFavoriteActionResponse struct {
-	StatusCode int32   `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode int32   `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	StatusMsg  *string `thrift:"status_msg,2,optional" frugal:"2,optional,string" json:"status_msg,omitempty"`
 }
 
@@ -494,9 +494,9 @@ func (p *DouyinFavoriteActionResponse) writeField1(oprot thrift.TProtocol) (err 
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -561,7 +561,7 @@ func (p *DouyinFavoriteActionResponse) Field2DeepEqual(src *string) bool {
 }
 
 type DouyinFavoriteListRequest struct {
-	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	UserId int64  `thrift:"user_id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"user_id"`
 	Token  string `thrift:"token,2,required" frugal:"2,required,string" json:"token"`
 }
 
@@ -739,9 +739,9 @@ func (p *DouyinFavoriteListRequest) writeField1(oprot thrift.TProtocol) (err err
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteListRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -799,7 +799,7 @@ func (p *DouyinFavoriteListRequest) Field2DeepEqual(src string) bool {
 }
 
 type DouyinFavoriteListResponse struct {
-	StatusCode int32    `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode int32    `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	StatusMsg  *string  `thrift:"status_msg,2,optional" frugal:"2,optional,string" json:"status_msg,omitempty"`
 	VideoList  []*Video `thrift:"video_list,3" frugal:"3,default,list<Video>" json:"video_list"`
 }
@@ -1022,9 +1022,9 @@ func (p *DouyinFavoriteListResponse) writeField1(oprot thrift.TProtocol) (err er
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteListResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1130,7 +1130,7 @@ func (p *DouyinFavoriteListResponse) Field3DeepEqual(src []*Video) bool {
 }
 
 type DouyinFavoriteJudgeRequest struct {
-	UserId  int64 `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	UserId  int64 `thrift:"user_id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"user_id"`
 	VideoId int64 `thrift:"video_id,2,required" frugal:"2,required,i64" json:"video_id"`
 }
 
@@ -1308,9 +1308,9 @@ func (p *DouyinFavoriteJudgeRequest) writeField1(oprot thrift.TProtocol) (err er
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteJudgeRequest) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1368,7 +1368,7 @@ func (p *DouyinFavoriteJudgeRequest) Field2DeepEqual(src int64) bool {
 }
 
 type DouyinFavoriteJudgeResponse struct {
-	StatusCode int32   `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode int32   `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	StatusMsg  *string `thrift:"status_msg,2,optional" frugal:"2,optional,string" json:"status_msg,omitempty"`
 	IfFav      int32   `thrift:"if_fav,3,required" frugal:"3,required,i32" json:"if_fav"`
 }
@@ -1587,9 +1587,9 @@ func (p *DouyinFavoriteJudgeResponse) writeField1(oprot thrift.TProtocol) (err e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteJudgeResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -1681,7 +1681,7 @@ func (p *DouyinFavoriteJudgeResponse) Field3DeepEqual(src int32) bool {
 }
 
 type DouyinFavoriteCountUserRequest struct {
-	UserId int64 `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	UserId int64 `thrift:"user_id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"user_id"`
 }
 
 func NewDouyinFavoriteCountUserRequest() *DouyinFavoriteCountUserRequest {
@@ -1820,9 +1820,9 @@ func (p *DouyinFavoriteCountUserRequest) writeField1(oprot thrift.TProtocol) (er
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteCountUserRequest) String() string {
@@ -1853,7 +1853,7 @@ func (p *DouyinFavoriteCountUserRequest) Field1DeepEqual(src int64) bool {
 }
 
 type DouyinFavoriteCountUserResponse struct {
-	StatusCode    int32   `thrift:"status_code,1,required" frugal:"1,required,i32" json:"status_code"`
+	StatusCode    int32   `thrift:"status_code,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i32" json:"status_code"`
 	FavoriteCount int64   `thrift:"favorite_count,2,required" frugal:"2,required,i64" json:"favorite_count"`
 	StatusMsg     *string `thrift:"status_msg,3,optional" frugal:"3,optional,string" json:"status_msg,omitempty"`
 }
@@ -2072,9 +2072,9 @@ func (p *DouyinFavoriteCountUserResponse) writeField1(oprot thrift.TProtocol) (e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *DouyinFavoriteCountUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
@@ -2166,7 +2166,7 @@ func (p *DouyinFavoriteCountUserResponse) Field3DeepEqual(src *string) bool {
 }
 
 type Video struct {
-	Id            int64  `thrift:"id,1,required" frugal:"1,required,i64" json:"id"`
+	Id            int64  `thrift:"id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"id"`
 	Author        *User  `thrift:"author,2,required" frugal:"2,required,User" json:"author"`
 	PlayUrl       string `thrift:"play_url,3,required" frugal:"3,required,string" json:"play_url"`
 	CoverUrl      string `thrift:"cover_url,4,required" frugal:"4,required,string" json:"cover_url"`
@@ -2586,9 +2586,9 @@ func (p *Video) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *Video) writeField2(oprot thrift.TProtocol) (err error) {
@@ -2808,7 +2808,7 @@ func (p *Video) Field8DeepEqual(src string) bool {
 }
 
 type User struct {
-	Id              int64   `thrift:"id,1,required" frugal:"1,required,i64" json:"id"`
+	Id              int64   `thrift:"id,otel-collector-config.yaml,required" frugal:"otel-collector-config.yaml,required,i64" json:"id"`
 	Name            string  `thrift:"name,2,required" frugal:"2,required,string" json:"name"`
 	FollowCount     *int64  `thrift:"follow_count,3,optional" frugal:"3,optional,i64" json:"follow_count,omitempty"`
 	FollowerCount   *int64  `thrift:"follower_count,4,optional" frugal:"4,optional,i64" json:"follower_count,omitempty"`
@@ -3353,9 +3353,9 @@ func (p *User) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *User) writeField2(oprot thrift.TProtocol) (err error) {
@@ -4021,7 +4021,7 @@ func (p *favoriteServiceProcessorFavoriteCountUser) Process(ctx context.Context,
 }
 
 type FavoriteServiceFavoriteActionArgs struct {
-	Request *DouyinFavoriteActionRequest `thrift:"request,1" frugal:"1,default,DouyinFavoriteActionRequest" json:"request"`
+	Request *DouyinFavoriteActionRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinFavoriteActionRequest" json:"request"`
 }
 
 func NewFavoriteServiceFavoriteActionArgs() *FavoriteServiceFavoriteActionArgs {
@@ -4160,9 +4160,9 @@ func (p *FavoriteServiceFavoriteActionArgs) writeField1(oprot thrift.TProtocol) 
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *FavoriteServiceFavoriteActionArgs) String() string {
@@ -4367,7 +4367,7 @@ func (p *FavoriteServiceFavoriteActionResult) Field0DeepEqual(src *DouyinFavorit
 }
 
 type FavoriteServiceFavoriteListArgs struct {
-	Request *DouyinFavoriteListRequest `thrift:"request,1" frugal:"1,default,DouyinFavoriteListRequest" json:"request"`
+	Request *DouyinFavoriteListRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinFavoriteListRequest" json:"request"`
 }
 
 func NewFavoriteServiceFavoriteListArgs() *FavoriteServiceFavoriteListArgs {
@@ -4506,9 +4506,9 @@ func (p *FavoriteServiceFavoriteListArgs) writeField1(oprot thrift.TProtocol) (e
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *FavoriteServiceFavoriteListArgs) String() string {
@@ -4713,7 +4713,7 @@ func (p *FavoriteServiceFavoriteListResult) Field0DeepEqual(src *DouyinFavoriteL
 }
 
 type FavoriteServiceFavoriteJudgeArgs struct {
-	Request *DouyinFavoriteJudgeRequest `thrift:"request,1" frugal:"1,default,DouyinFavoriteJudgeRequest" json:"request"`
+	Request *DouyinFavoriteJudgeRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinFavoriteJudgeRequest" json:"request"`
 }
 
 func NewFavoriteServiceFavoriteJudgeArgs() *FavoriteServiceFavoriteJudgeArgs {
@@ -4852,9 +4852,9 @@ func (p *FavoriteServiceFavoriteJudgeArgs) writeField1(oprot thrift.TProtocol) (
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *FavoriteServiceFavoriteJudgeArgs) String() string {
@@ -5059,7 +5059,7 @@ func (p *FavoriteServiceFavoriteJudgeResult) Field0DeepEqual(src *DouyinFavorite
 }
 
 type FavoriteServiceFavoriteCountUserArgs struct {
-	Request *DouyinFavoriteCountUserRequest `thrift:"request,1" frugal:"1,default,DouyinFavoriteCountUserRequest" json:"request"`
+	Request *DouyinFavoriteCountUserRequest `thrift:"request,otel-collector-config.yaml" frugal:"otel-collector-config.yaml,default,DouyinFavoriteCountUserRequest" json:"request"`
 }
 
 func NewFavoriteServiceFavoriteCountUserArgs() *FavoriteServiceFavoriteCountUserArgs {
@@ -5198,9 +5198,9 @@ func (p *FavoriteServiceFavoriteCountUserArgs) writeField1(oprot thrift.TProtoco
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field otel-collector-config.yaml end error: ", p), err)
 }
 
 func (p *FavoriteServiceFavoriteCountUserArgs) String() string {

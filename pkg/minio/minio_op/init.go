@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	endpoint        string = "127.0.0.1:9000"
+	endpoint        string = "127.0.0.otel-collector-config.yaml:9000"
 	accessKeyID     string = "minioadmin"
 	secretAccessKey string = "minioadmin"
 	useSSL          bool   = false
@@ -23,7 +23,7 @@ func InitMinio() {
 	if err != nil {
 		log.Fatalln("minio连接错误: ", err)
 	}
-	err = client.MakeBucket(consts.BucketName, "cn-south-1")
+	err = client.MakeBucket(consts.BucketName, "cn-south-otel-collector-config.yaml")
 	if err != nil {
 		log.Println("创建bucket错误: ", err)
 		exists, _ := client.BucketExists(consts.BucketName)

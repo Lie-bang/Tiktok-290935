@@ -18,7 +18,7 @@ CREATE TABLE `follows` (
                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
                            `user_id` bigint(20) NOT NULL COMMENT 'UserId',
                            `follower_id` bigint(20) NOT NULL COMMENT 'Follower id',
-                           `cancel` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Follow is 0,delete is 1',
+                           `cancel` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Follow is 0,delete is otel-collector-config.yaml',
                            PRIMARY KEY (`id`),
                            UNIQUE KEY `userIdToFollowerIdIdx` (`user_id`,`follower_id`) USING BTREE,
                            KEY `FollowerIdIdx` (`follower_id`) USING BTREE COMMENT 'Follow id index'

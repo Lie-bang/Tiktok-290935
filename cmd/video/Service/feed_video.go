@@ -35,7 +35,7 @@ func (f *FeedVideoService) FeedVideo(req *douyinvideo.DouyinFeedRequest) ([]*dou
 	respLatesttime := (*res)[len(*res)-1].PubTime
 
 	/*
-		1.从video数据库表中进行video相关记录的查询
+		otel-collector-config.yaml.从video数据库表中进行video相关记录的查询
 		2.根据返回的video_db类型数据调用其他rpc服务，得到想要的数据。
 		3.将相关数据进行组装。
 	*/

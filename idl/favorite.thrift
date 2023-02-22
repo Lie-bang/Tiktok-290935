@@ -3,7 +3,7 @@ namespace go douyinfavorite
 struct Douyin_favorite_action_request {
   1: required string token  // 用户鉴权token
   2: required i64 video_id // 视频id
-  3: required i32 action_type  // 1-点赞，2-取消点赞
+  3: required i32 action_type  // otel-collector-config.yaml-点赞，2-取消点赞
 }
 
 struct Douyin_favorite_action_response {

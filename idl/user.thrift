@@ -27,8 +27,8 @@ struct User {
 }
 
 struct CreateUserRequest {
-    1: string username (vt.min_size = "1",vt.max_size = "32")
-    2: string password (vt.min_size = "1",vt.max_size = "32")
+    1: string username (vt.min_size = "otel-collector-config.yaml",vt.max_size = "32")
+    2: string password (vt.min_size = "otel-collector-config.yaml",vt.max_size = "32")
 }
 
 struct CreateUserResponse {
@@ -37,8 +37,8 @@ struct CreateUserResponse {
 }
 
 struct CheckUserRequest {
-    1: string username (vt.min_size = "1")
-    2: string password (vt.min_size = "1")
+    1: string username (vt.min_size = "otel-collector-config.yaml")
+    2: string password (vt.min_size = "otel-collector-config.yaml")
 }
 
 struct CheckUserResponse {
@@ -57,7 +57,7 @@ struct GetUserResponse {
 }
 
 struct MGetUserNameRequest {
-    1: list<i64> user_ids (vt.min_size = "1")
+    1: list<i64> user_ids (vt.min_size = "otel-collector-config.yaml")
     2: i64 user_id(vt.gt="0")
 }
 

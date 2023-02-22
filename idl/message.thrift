@@ -27,7 +27,7 @@ struct ChatRecordResponse{
 struct SendMessageRequest{
     1: i64 to_user_id(vt.gt="0")
     2: i64 user_id(vt.gt="0")
-    3: i64 action_type(vt.in="1")
+    3: i64 action_type(vt.in="otel-collector-config.yaml")
     4: string content
 }
 

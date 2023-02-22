@@ -27,7 +27,7 @@ struct FriendUser {
 struct ActionRequest{
     1: i64 user_id(vt.gt="0")
     2: i64 to_user_id(vt.gt="0")
-    3: i32 action_type(vt.in="1",vt.in="2")
+    3: i32 action_type(vt.in="otel-collector-config.yaml",vt.in="2")
 }
 
 struct ActionResponse{
