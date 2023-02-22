@@ -182,3 +182,5 @@ sh output/bootstrap.sh
 ```
 ./api
 ```
+
+开启api网关后将持续监听8080端口作为访问入口
