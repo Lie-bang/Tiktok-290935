@@ -33,7 +33,7 @@ Minio是一个开源的对象存储服务，可以用于存储大量非结构化
 
 ## 项目架构
 
-![image]([http](https://github.com/Lie-bang/Tiktok-290935/ararchitecture.jpg)
+![image](https://github.com/Lie-bang/Tiktok-290935/blob/main/architecture.jpg)
 
 ## 项目结构
 
