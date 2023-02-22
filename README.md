@@ -4,13 +4,12 @@
 ![](https://img.shields.io/badge/go-1.19.5-blue)
 
 ## 项目简介🌟
-仓库: https://github.com/Lie-bang/Tiktok-290935
 
 采用Hertz/Kitex微服务架构进行项目开发，合理拆解各项业务便于团队协作开发，并使用Etcd进行服务注册与服务发现，利用Minio分布式对象存储来存储数据，采用MySQL、Redis相结合的方式最大化存储效率，实现了一个简易版抖音。
 
-## 项目部署⚡
+仓库: https://github.com/Lie-bang/Tiktok-290935
 
-docker_compose
+文档：https://rmlso9nib5.feishu.cn/docx/QHWmdNvWQokvTsx3ZsMcx6kcnWd
 
 ## 项目技术栈
 
@@ -32,10 +31,14 @@ Etcd是一个分布式键值存储系统，用于在分布式系统中存储和�
 ### 分布式对象存储使用Minio
 Minio是一个开源的对象存储服务，可以用于存储大量非结构化数据，如图片、视频、日志文件、备份数据等。它支持多种标准协议，如Amazon S3、OpenStack Swift和Google Cloud Storage，可以轻松部署在本地或云环境中。
 
+## 项目架构
+
+![image]([http](https://github.com/Lie-bang/Tiktok-290935/ararchitecture.jpg)
+
 ## 项目结构
 
 <details>
-<summary>展开查看</summary>
+<summary>点击展开</summary>
 <pre>
 <code>
        ├─ .DS_Store
@@ -155,3 +158,7 @@ Minio是一个开源的对象存储服务，可以用于存储大量非结构化
 </code>
 </pre>
 </details>
+
+## 项目部署⚡
+
+docker-compose
