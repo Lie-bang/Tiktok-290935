@@ -1,7 +1,9 @@
-# Douyin（第五届字节跳动后端青训营项目）👏 
+# Douyin💃（第五届字节跳动后端青训营项目）👏 
 ![](https://img.shields.io/badge/lisence-MIT-yellow)
 ![](https://img.shields.io/badge/build-1.0-orange)
 ![](https://img.shields.io/badge/go-1.19.5-blue)
+![](https://img.shields.io/badge/%F0%9F%99%86%E2%80%8D%E2%99%80%EF%B8%8F-zhouzhou-red)
+![](https://img.shields.io/badge/Team-2%EF%B8%8F%E2%83%A39%EF%B8%8F%E2%83%A30%EF%B8%8F%E2%83%A39%EF%B8%8F%E2%83%A33%EF%B8%8F%E2%83%A35%EF%B8%8F%E2%83%A3-blueviolet)
 
 ## 项目简介🌟
 
@@ -11,7 +13,7 @@
 
 文档：https://rmlso9nib5.feishu.cn/docx/QHWmdNvWQokvTsx3ZsMcx6kcnWd
 
-## 项目技术栈
+## 项目技术栈📢 
 
 ### RPC框架使用Kitex
 Kitex 是字节跳动内部的 Golang 微服务 RPC 框架，具有高性能、强可扩展的特点，在字节内部已广泛使用。如果对微服务性能有要求，又希望定制扩展融入自己的治理体系，Kitex 会是一个不错的选择。
@@ -31,13 +33,13 @@ Etcd是一个分布式键值存储系统，用于在分布式系统中存储和�
 ### 分布式对象存储使用Minio
 Minio是一个开源的对象存储服务，可以用于存储大量非结构化数据，如图片、视频、日志文件、备份数据等。它支持多种标准协议，如Amazon S3、OpenStack Swift和Google Cloud Storage，可以轻松部署在本地或云环境中。
 
-## 项目架构
+## 项目架构🔨 
 
 [点击放大](./architecture.jpg)
 
 <img src="./architecture.jpg">
 
-## 项目结构
+## 项目结构📜 
 
 <details>
 <summary>点击展开</summary>
